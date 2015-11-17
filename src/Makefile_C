@@ -1,0 +1,42 @@
+#USE_DOUBLE = 1
+
+# optimization settings 
+OPT=-O3 -ftree-vectorize -ffast-math -funroll-loops
+#OPT=-O1
+#INFO=-fopt-info-vec-missed
+#INFO=-fopt-info-vec-optimized
+
+# SCALE and MANDEL can be passed as command line args
+ifndef SCALE
+SCALE = scale1
+endif
+
+# scale1.c is not needed for inline versions
+ifeq ($(SCALE),scale1)
+SCALE_SRC = scale1.c
+endif
+ifdef USE_DOUBLE
+TYPE_DEF = -DUSE_DOUBLE
+endif
+
+# this should require little changes
+ARCH=-march=native 
+CC = gcc
+CFLAGS=-std=gnu99 -O1 $(ARCH)
+LDFLAGS=-lm
+OPTCFLAGS=$(OPT) $(ARCH) $(INFO)
+TIMING=../utilities/timing.o -lrt
+IMAGE_SOA=../utilities/ppm_soa.o
+
+all: iterate
+
+.FORCE:	
+
+iterate:	iterate.c $(TIMING) Makefile .FORCE $(SCALE).lst
+	$(CC) $(OPTCFLAGS) $(LDFLAGS) $(TYPE_DEF) -DSCALE=$(SCALE) -DFLAGS='$(OPT)' -o $@ $< $(SCALE_SRC) $(TIMING) 
+
+$(SCALE).lst:	iterate.c Makefile
+	$(CC) -c -g -Wa,-a,-ad $(OPTCFLAGS) $(TYPE_DEF) -DSCALE=$(SCALE) iterate.c $(SCALE_SRC)  > $@
+
+clean:	
+	rm -f *.o *.s *.exe *.lst *.ppm iterate

@@ -1,0 +1,905 @@
+KIMOSHI (laptop)
+
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 58
+model name	: Intel(R) Core(TM) i5-3230M CPU @ 2.60GHz
+stepping	: 9
+microcode	: 0x12
+cpu MHz		: 1307.007
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 2
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid fsgsbase smep erms
+bogomips	: 5188.25
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+.....................................................
+
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 58
+model name	: Intel(R) Core(TM) i5-3230M CPU @ 2.60GHz
+stepping	: 9
+microcode	: 0x12
+cpu MHz		: 1375.867
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 2
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid fsgsbase smep erms
+bogomips	: 5188.25
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C Compiler
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+gcc version
+Using built-in specs.
+COLLECT_GCC=gcc
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.9/lto-wrapper
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Debian 4.9.2-10' --with-bugurl=file:///usr/share/doc/gcc-4.9/README.Bugs --enable-languages=c,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-4.9 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --with-gxx-include-dir=/usr/include/c++/4.9 --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-4.9-amd64/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-4.9-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-4.9-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --enable-objc-gc --enable-multiarch --with-arch-32=i586 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+Thread model: posix
+gcc version 4.9.2 (Debian 4.9.2-10) 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C Results
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+SCALE 1
+ 6.734e+09  8.296e-01 #   4   8 scale1 float -O3 -ftree-vectorize -ffast-math
+ 4.736e+09  1.064e-13 #   8  16 scale1 double -O3 -ftree-vectorize -ffast-math
+SCALE 2
+ 1.291e+10  8.296e-01 #   4   8 scale2 float -O3 -ftree-vectorize -ffast-math
+ 6.239e+09  1.064e-13 #   8  16 scale2 double -O3 -ftree-vectorize -ffast-math
+SCALE 3
+ 1.302e+10  8.296e-01 #   4   8 scale3 float -O3 -ftree-vectorize -ffast-math
+ 6.524e+09  1.064e-13 #   8  16 scale3 double -O3 -ftree-vectorize -ffast-math
+SCALE 4
+ 2.186e+10  8.296e-01 #   0   0 scale4 float -O3 -ftree-vectorize -ffast-math
+ 9.446e+09  1.064e-13 #   0   0 scale4 double -O3 -ftree-vectorize -ffast-math
+
+Adding unroll loops to Makefile
+SCALE 1
+ 6.550e+09  8.296e-01 #   4   8 scale1 float -O3 -ftree-vectorize -ffast-math -funroll-loops
+ 5.220e+09  1.064e-13 #   8  16 scale1 double -O3 -ftree-vectorize -ffast-math -funroll-loops
+SCALE 2
+ 1.299e+10  8.296e-01 #   4   8 scale2 float -O3 -ftree-vectorize -ffast-math -funroll-loops
+ 6.432e+09  1.064e-13 #   8  16 scale2 double -O3 -ftree-vectorize -ffast-math -funroll-loops
+SCALE 3
+ 1.337e+10  8.296e-01 #   4   8 scale3 float -O3 -ftree-vectorize -ffast-math -funroll-loops
+ 6.374e+09  1.064e-13 #   8  16 scale3 double -O3 -ftree-vectorize -ffast-math -funroll-loops
+SCALE 4
+ 3.863e+10  8.296e-01 #   0   0 scale4 float -O3 -ftree-vectorize -ffast-math -funroll-loops
+ 1.110e+10  1.064e-13 #   0   0 scale4 double -O3 -ftree-vectorize -ffast-math -funroll-loops
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Python Results
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+[pts/4][curro.kimoshi: src]$ ./iterate_0.py 
+array([  8.32524363e-14,   8.32524363e-14,   4.01577377e-13,
+         8.32524363e-14,   4.02386776e-14,   4.01577377e-13,
+         2.65614916e-14,   8.32524363e-14,   7.73939316e-14,
+         4.02386776e-14,   6.48233743e-13,   4.01577377e-13,
+         4.56607593e-13,   2.65614916e-14,   1.42084158e-13,
+         8.32524363e-14,   3.93571812e-13,   7.73939316e-14,
+         1.93525400e-13,   4.02386776e-14,   1.67429900e-13,
+         6.48233743e-13,   5.05788715e-13,   4.01577377e-13,
+         1.44304223e-14,   4.56607593e-13,   3.14509204e-14,
+         2.65614916e-14,   1.32821128e-13,   1.42084158e-13,
+         7.71651614e-14,   8.32524363e-14,   3.85652195e-13,
+         3.93571812e-13,   1.16077683e-13,   7.73939316e-14,
+         3.95711580e-13,   1.93525400e-13,   6.08667812e-13,
+         4.02386776e-14,   6.40299226e-14,   1.67429900e-13,
+         3.40496011e-13,   6.48233743e-13,   4.92237738e-13,
+         5.05788715e-13,   3.35725782e-13,   4.01577377e-13,
+         2.41828506e-13,   1.44304223e-14,   6.66019491e-13,
+         4.56607593e-13,   1.15192050e-13,   3.14509204e-14,
+         3.01323364e-13,   2.65614916e-14,   2.07206064e-13,
+         1.32821128e-13,   2.15233417e-13,   1.42084158e-13,
+         1.63411340e-13,   7.71651614e-14,   1.06422162e-13])
+3.437826e+07
+2.685802e-03
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Fortran Results
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Note that -ffast-math label greatly increases error while
+the program seems insensitive to -ftree-vectorize.
+
+
+First version. O0 optimization.
+
+(a) Double precision
+
+[pts/6][curro.kimoshi: src]$ make iteratef 
+cpp -std=c89 -DPREC=DP  -DFLAGS="\"-O0 -march=native \"" iterate.f90 > /tmp/iterate.f90
+cpp -std=c89 -DPREC=DP  -DFLAGS="\"-O0 -march=native \"" scale.f90 > /tmp/scale.f90
+gfortran -O0 -march=native  -lm -o iteratef /tmp/scale.f90 /tmp/iterate.f90
+[pts/6][curro.kimoshi: src]$ ./iteratef < aval_sp.inp 
+     0.13138275526E-12   0.13138275526E-12   0.84842329305E-13
+     0.13138275526E-12   0.22374092975E-13   0.84842329305E-13
+     0.94402319198E-13   0.13138275526E-12   0.80361729291E-13
+     0.22374092975E-13   0.11715257985E-12   0.84842329305E-13
+     0.29084986694E-13   0.94402319198E-13   0.12661308428E-12
+     0.13138275526E-12   0.59174527705E-14   0.80361729291E-13
+     0.20301910558E-12   0.22374092975E-13   0.19656825870E-13
+     0.11715257985E-12   0.10391472909E-12   0.84842329305E-13
+     0.61745558908E-13   0.29084986694E-13   0.22868725522E-13
+     0.94402319198E-13   0.46410842418E-13   0.12661308428E-12
+     0.55949219743E-15   0.13138275526E-12   0.70428199640E-13
+     0.59174527705E-14   0.48762142830E-13   0.80361729291E-13
+     0.88690098280E-13   0.20301910558E-12   0.45361905853E-13
+     0.22374092975E-13   0.29849045194E-12   0.19656825870E-13
+     0.11939303264E-13   0.11715257985E-12   0.11362416209E-12
+     0.10391472909E-12   0.79709782000E-14   0.84842329305E-13
+     0.10604774965E-12   0.61745558908E-13   0.23941877876E-13
+     0.29084986694E-13   0.74089434688E-13   0.22868725522E-13
+     0.10923729114E-12   0.94402319198E-13   0.49415921381E-13
+     0.46410842418E-13   0.41978984061E-13   0.12661308428E-12
+     0.44810739012E-13   0.55949219743E-15   0.92722954523E-13
+
+    0.784313725E+09  0.612745098E+00; PREC : DOUBLE; FLAGS : -O0 -march=native 
+
+(b) Single precision: no significative time improvement and huge relative error. 
+
+[pts/6][curro.kimoshi: src]$ make clean
+rm -f *.o *.s *.exe *.lst *.ppm iteratef
+[pts/6][curro.kimoshi: src]$ make iteratef USE_SIMPLE=1
+cpp -std=c89 -DPREC=SP  -DFLAGS="\"-O0 -march=native \"" iterate.f90 > /tmp/iterate.f90
+cpp -std=c89 -DPREC=SP  -DFLAGS="\"-O0 -march=native \"" scale.f90 > /tmp/scale.f90
+gfortran -O0 -march=native  -lm -o iteratef /tmp/scale.f90 /tmp/iterate.f90
+[pts/6][curro.kimoshi: src]$ ./iteratef < aval_sp.inp 
+     0.62064230741E-02   0.62064230741E-02   0.34102888154E-01
+     0.62064230741E-02   0.39967818106E-01   0.34102888154E-01
+     0.20103401395E-01   0.62064230741E-02   0.44835246888E-01
+     0.39967818106E-01   0.64818839552E-01   0.34102888154E-01
+     0.57909891145E-01   0.20103401395E-01   0.11696950302E-01
+     0.62064230741E-02   0.33093798133E-01   0.44835246888E-01
+     0.64310223083E-01   0.39967818106E-01   0.41670831867E-01
+     0.64818839552E-01   0.79830435042E-01   0.34102888154E-01
+     0.76516828849E-01   0.57909891145E-01   0.35653913748E-01
+     0.20103401395E-01   0.13197612247E-01   0.11696950302E-01
+     0.34040548568E-01   0.62064230741E-02   0.18504150465E-01
+     0.33093798133E-01   0.48842411376E-01   0.44835246888E-01
+     0.48565962551E-01   0.64310223083E-01   0.78414770166E-01
+     0.39967818106E-01   0.26304949404E-01   0.41670831867E-01
+     0.57250475902E-01   0.64818839552E-01   0.67763514222E-01
+     0.79830435042E-01   0.90751392123E-01   0.34102888154E-01
+     0.91236952010E-01   0.76516828849E-01   0.61639734955E-01
+     0.57909891145E-01   0.51064537256E-01   0.35653913748E-01
+     0.20481431847E-01   0.20103401395E-01   0.27834922889E-01
+     0.13197612247E-01   0.12255956142E-02   0.11696950302E-01
+     0.20601395938E-01   0.34040548568E-01   0.46910947302E-01
+
+    0.808080812E+09  0.631313145E+00; PREC : SINGLE; FLAGS : -O0 -march=native 
+
+
+Second version: Increase optimization level to -O3. Time improvement in both cases. Errors remain the same.
+
+(a) Double precision
+
+pts/6][curro.kimoshi: src]$ ./iteratef < aval_sp.inp 
+     0.13138275526E-12   0.13138275526E-12   0.84842329305E-13
+     0.13138275526E-12   0.22374092975E-13   0.84842329305E-13
+     0.94402319198E-13   0.13138275526E-12   0.80361729291E-13
+     0.22374092975E-13   0.11715257985E-12   0.84842329305E-13
+     0.29084986694E-13   0.94402319198E-13   0.12661308428E-12
+     0.13138275526E-12   0.59174527705E-14   0.80361729291E-13
+     0.20301910558E-12   0.22374092975E-13   0.19656825870E-13
+     0.11715257985E-12   0.10391472909E-12   0.84842329305E-13
+     0.61745558908E-13   0.29084986694E-13   0.22868725522E-13
+     0.94402319198E-13   0.46410842418E-13   0.12661308428E-12
+     0.55949219743E-15   0.13138275526E-12   0.70428199640E-13
+     0.59174527705E-14   0.48762142830E-13   0.80361729291E-13
+     0.88690098280E-13   0.20301910558E-12   0.45361905853E-13
+     0.22374092975E-13   0.29849045194E-12   0.19656825870E-13
+     0.11939303264E-13   0.11715257985E-12   0.11362416209E-12
+     0.10391472909E-12   0.79709782000E-14   0.84842329305E-13
+     0.10604774965E-12   0.61745558908E-13   0.23941877876E-13
+     0.29084986694E-13   0.74089434688E-13   0.22868725522E-13
+     0.10923729114E-12   0.94402319198E-13   0.49415921381E-13
+     0.46410842418E-13   0.41978984061E-13   0.12661308428E-12
+     0.44810739012E-13   0.55949219743E-15   0.92722954523E-13
+
+    0.177777778E+10  0.138888889E+01; PREC : DOUBLE; FLAGS : -O3 -march=native 
+
+
+(b) Single precision
+
+pts/6][curro.kimoshi: src]$ make clean
+rm -f *.o *.s *.exe *.lst *.ppm iteratef
+[pts/6][curro.kimoshi: src]$ make iteratef USE_SIMPLE=1
+cpp -std=c89 -DPREC=SP  -DFLAGS="\"-O3 -march=native \"" iterate.f90 > /tmp/iterate.f90
+cpp -std=c89 -DPREC=SP  -DFLAGS="\"-O3 -march=native \"" scale.f90 > /tmp/scale.f90
+gfortran -O3 -march=native  -lm -o iteratef /tmp/scale.f90 /tmp/iterate.f90
+[pts/6][curro.kimoshi: src]$ ./iteratef < aval_sp.inp 
+     0.62064230741E-02   0.62064230741E-02   0.34102888154E-01
+     0.62064230741E-02   0.39967818106E-01   0.34102888154E-01
+     0.20103401395E-01   0.62064230741E-02   0.44835246888E-01
+     0.39967818106E-01   0.64818839552E-01   0.34102888154E-01
+     0.57909891145E-01   0.20103401395E-01   0.11696950302E-01
+     0.62064230741E-02   0.33093798133E-01   0.44835246888E-01
+     0.64310223083E-01   0.39967818106E-01   0.41670831867E-01
+     0.64818839552E-01   0.79830435042E-01   0.34102888154E-01
+     0.76516828849E-01   0.57909891145E-01   0.35653913748E-01
+     0.20103401395E-01   0.13197612247E-01   0.11696950302E-01
+     0.34040548568E-01   0.62064230741E-02   0.18504150465E-01
+     0.33093798133E-01   0.48842411376E-01   0.44835246888E-01
+     0.48565962551E-01   0.64310223083E-01   0.78414770166E-01
+     0.39967818106E-01   0.26304949404E-01   0.41670831867E-01
+     0.57250475902E-01   0.64818839552E-01   0.67763514222E-01
+     0.79830435042E-01   0.90751392123E-01   0.34102888154E-01
+     0.91236952010E-01   0.76516828849E-01   0.61639734955E-01
+     0.57909891145E-01   0.51064537256E-01   0.35653913748E-01
+     0.20481431847E-01   0.20103401395E-01   0.27834922889E-01
+     0.13197612247E-01   0.12255956142E-02   0.11696950302E-01
+     0.20601395938E-01   0.34040548568E-01   0.46910947302E-01
+
+    0.178770945E+10  0.139664805E+01; PREC : SINGLE; FLAGS : -O3 -march=native 
+
+
+Third version:  Improved time without error increase: -O3  -funroll-loops
+
+(a) Double precision
+
+[pts/6][curro.kimoshi: src]$ make iteratef 
+cpp -std=c89 -DPREC=DP  -DFLAGS="\"-O3 -funroll-loops -march=native \"" iterate.f90 > /tmp/iterate.f90
+cpp -std=c89 -DPREC=DP  -DFLAGS="\"-O3 -funroll-loops -march=native \"" scale.f90 > /tmp/scale.f90
+gfortran -O3 -funroll-loops -march=native  -lm -o iteratef /tmp/scale.f90 /tmp/iterate.f90
+[pts/6][curro.kimoshi: src]$ ./iteratef < aval_sp.inp 
+     0.13138275526E-12   0.13138275526E-12   0.84842329305E-13
+     0.13138275526E-12   0.22374092975E-13   0.84842329305E-13
+     0.94402319198E-13   0.13138275526E-12   0.80361729291E-13
+     0.22374092975E-13   0.11715257985E-12   0.84842329305E-13
+     0.29084986694E-13   0.94402319198E-13   0.12661308428E-12
+     0.13138275526E-12   0.59174527705E-14   0.80361729291E-13
+     0.20301910558E-12   0.22374092975E-13   0.19656825870E-13
+     0.11715257985E-12   0.10391472909E-12   0.84842329305E-13
+     0.61745558908E-13   0.29084986694E-13   0.22868725522E-13
+     0.94402319198E-13   0.46410842418E-13   0.12661308428E-12
+     0.55949219743E-15   0.13138275526E-12   0.70428199640E-13
+     0.59174527705E-14   0.48762142830E-13   0.80361729291E-13
+     0.88690098280E-13   0.20301910558E-12   0.45361905853E-13
+     0.22374092975E-13   0.29849045194E-12   0.19656825870E-13
+     0.11939303264E-13   0.11715257985E-12   0.11362416209E-12
+     0.10391472909E-12   0.79709782000E-14   0.84842329305E-13
+     0.10604774965E-12   0.61745558908E-13   0.23941877876E-13
+     0.29084986694E-13   0.74089434688E-13   0.22868725522E-13
+     0.10923729114E-12   0.94402319198E-13   0.49415921381E-13
+     0.46410842418E-13   0.41978984061E-13   0.12661308428E-12
+     0.44810739012E-13   0.55949219743E-15   0.92722954523E-13
+
+    0.231884058E+10  0.181159420E+01; PREC : DOUBLE; FLAGS : -O3 -funroll-loops -march=native 
+
+(b) Single precision
+
+[pts/6][curro.kimoshi: src]$ make iteratef USE_SIMPLE=1
+cpp -std=c89 -DPREC=SP  -DFLAGS="\"-O3 -funroll-loops -march=native \"" iterate.f90 > /tmp/iterate.f90
+cpp -std=c89 -DPREC=SP  -DFLAGS="\"-O3 -funroll-loops -march=native \"" scale.f90 > /tmp/scale.f90
+gfortran -O3 -funroll-loops -march=native  -lm -o iteratef /tmp/scale.f90 /tmp/iterate.f90
+[pts/6][curro.kimoshi: src]$ ./iteratef < aval_sp.inp 
+     0.62064230741E-02   0.62064230741E-02   0.34102888154E-01
+     0.62064230741E-02   0.39967818106E-01   0.34102888154E-01
+     0.20103401395E-01   0.62064230741E-02   0.44835246888E-01
+     0.39967818106E-01   0.64818839552E-01   0.34102888154E-01
+     0.57909891145E-01   0.20103401395E-01   0.11696950302E-01
+     0.62064230741E-02   0.33093798133E-01   0.44835246888E-01
+     0.64310223083E-01   0.39967818106E-01   0.41670831867E-01
+     0.64818839552E-01   0.79830435042E-01   0.34102888154E-01
+     0.76516828849E-01   0.57909891145E-01   0.35653913748E-01
+     0.20103401395E-01   0.13197612247E-01   0.11696950302E-01
+     0.34040548568E-01   0.62064230741E-02   0.18504150465E-01
+     0.33093798133E-01   0.48842411376E-01   0.44835246888E-01
+     0.48565962551E-01   0.64310223083E-01   0.78414770166E-01
+     0.39967818106E-01   0.26304949404E-01   0.41670831867E-01
+     0.57250475902E-01   0.64818839552E-01   0.67763514222E-01
+     0.79830435042E-01   0.90751392123E-01   0.34102888154E-01
+     0.91236952010E-01   0.76516828849E-01   0.61639734955E-01
+     0.57909891145E-01   0.51064537256E-01   0.35653913748E-01
+     0.20481431847E-01   0.20103401395E-01   0.27834922889E-01
+     0.13197612247E-01   0.12255956142E-02   0.11696950302E-01
+     0.20601395938E-01   0.34040548568E-01   0.46910947302E-01
+
+    0.235294131E+10  0.183823538E+01; PREC : SINGLE; FLAGS : -O3 -funroll-loops -march=native 
+
+
+GAFF
+
+[pts/1][curro.gaff: src]$ cat /proc/cpuinfo 
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 44
+model name	: Intel(R) Xeon(R) CPU           X5672  @ 3.20GHz
+stepping	: 2
+microcode	: 0x13
+cpu MHz		: 3191.991
+cache size	: 12288 KB
+physical id	: 1
+siblings	: 8
+core id		: 0
+cpu cores	: 4
+apicid		: 32
+initial apicid	: 32
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 11
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6383.98
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 40 bits physical, 48 bits virtual
+power management:
+........................................................................................
+
+processor	: 15
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 44
+model name	: Intel(R) Xeon(R) CPU           X5672  @ 3.20GHz
+stepping	: 2
+microcode	: 0x13
+cpu MHz		: 3191.991
+cache size	: 12288 KB
+physical id	: 0
+siblings	: 8
+core id		: 10
+cpu cores	: 4
+apicid		: 21
+initial apicid	: 21
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 11
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6383.99
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 40 bits physical, 48 bits virtual
+power management:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C Compiler
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using built-in specs.
+COLLECT_GCC=gcc
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.7/lto-wrapper
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Debian 4.7.2-5' --with-bugurl=file:///usr/share/doc/gcc-4.7/README.Bugs --enable-languages=c,c++,go,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-4.7 --enable-shared --enable-linker-build-id --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --with-gxx-include-dir=/usr/include/c++/4.7 --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --enable-gnu-unique-object --enable-plugin --enable-objc-gc --with-arch-32=i586 --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+Thread model: posix
+gcc version 4.7.2 (Debian 4.7.2-5) 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C Results
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+SCALE 1
+ 5.903e+09  8.296e-01 #   4   8 scale1 float -O3 -ftree-vectorize -ffast-math -funroll-loops
+ 4.071e+09  1.064e-13 #   8  16 scale1 double -O3 -ftree-vectorize -ffast-math -funroll-loops
+SCALE 2
+ 8.647e+09  8.296e-01 #   4   8 scale2 float -O3 -ftree-vectorize -ffast-math -funroll-loops
+ 4.992e+09  1.064e-13 #   8  16 scale2 double -O3 -ftree-vectorize -ffast-math -funroll-loops
+ SCALE 3
+ 7.755e+09  8.296e-01 #   4   8 scale3 float -O3 -ftree-vectorize -ffast-math -funroll-loops
+ 4.859e+09  1.064e-13 #   8  16 scale3 double -O3 -ftree-vectorize -ffast-math -funroll-loops
+ SCALE 4
+ 1.293e+10  8.296e-01 #   0   0 scale4 float -O3 -ftree-vectorize -ffast-math -funroll-loops
+ 5.842e+09  1.064e-13 #   0   0 scale4 double -O3 -ftree-vectorize -ffast-math -funroll-loops
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Python Results
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+[pts/1][curro.gaff: src]$ ./iterate_0.py 
+array([  8.3252436337e-14,   8.3252436337e-14,   4.0157737694e-13,
+         8.3252436337e-14,   4.0238677563e-14,   4.0157737694e-13,
+         2.6561491593e-14,   8.3252436337e-14,   7.7393931558e-14,
+         4.0238677563e-14,   6.4823374293e-13,   4.0157737694e-13,
+         4.5660759314e-13,   2.6561491593e-14,   1.4208415801e-13,
+         8.3252436337e-14,   3.9357181178e-13,   7.7393931558e-14,
+         1.9352540026e-13,   4.0238677563e-14,   1.6742989974e-13,
+         6.4823374293e-13,   5.0578871467e-13,   4.0157737694e-13,
+         1.4430422298e-14,   4.5660759314e-13,   3.1450920394e-14,
+         2.6561491593e-14,   1.3282112832e-13,   1.4208415801e-13,
+         7.7165161422e-14,   8.3252436337e-14,   3.8565219499e-13,
+         3.9357181178e-13,   1.1607768266e-13,   7.7393931558e-14,
+         3.9571158028e-13,   1.9352540026e-13,   6.0866781233e-13,
+         4.0238677563e-14,   6.4029922581e-14,   1.6742989974e-13,
+         3.4049601094e-13,   6.4823374293e-13,   4.9223773840e-13,
+         5.0578871467e-13,   3.3572578228e-13,   4.0157737694e-13,
+         2.4182850555e-13,   1.4430422298e-14,   6.6601949070e-13,
+         4.5660759314e-13,   1.1519205028e-13,   3.1450920394e-14,
+         3.0132336352e-13,   2.6561491593e-14,   2.0720606377e-13,
+         1.3282112832e-13,   2.1523341733e-13,   1.4208415801e-13,
+         1.6341133952e-13,   7.7165161422e-14,   1.0642216201e-13])
+3.322777e+07
+2.595919e-03
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Fortran Results
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+First version. O0 optimization.
+
+(a) Double precision
+
+[pts/1][curro.gaff: src]$ iteratef < aval.inp 
+     0.74561828111E-13   0.74561828111E-13   0.35539367002E-13
+     0.74561828111E-13   0.68292258717E-13   0.35539367002E-13
+     0.22264814638E-13   0.74561828111E-13   0.22197345503E-13
+     0.68292258717E-13   0.19784403883E-12   0.35539367002E-13
+     0.11116837519E-13   0.22264814638E-13   0.79910443810E-13
+     0.74561828111E-13    0.0000000000       0.22197345503E-13
+     0.14496631464E-12   0.68292258717E-13   0.30091234329E-13
+     0.19784403883E-12   0.46571303978E-13   0.35539367002E-13
+     0.49873184789E-14   0.11116837519E-13   0.31632529241E-12
+     0.22264814638E-13   0.58628352025E-14   0.79910443810E-13
+     0.97991301492E-13   0.74561828111E-13   0.15284825917E-12
+      0.0000000000       0.54569036604E-13   0.22197345503E-13
+     0.55601861420E-13   0.14496631464E-12   0.51006666262E-13
+     0.68292258717E-13   0.78237867491E-13   0.30091234329E-13
+     0.84747510093E-13   0.19784403883E-12   0.70653678451E-13
+     0.46571303978E-13   0.22910795720E-13   0.35539367002E-13
+     0.23062878124E-12   0.49873184789E-14   0.12079356476E-12
+     0.11116837519E-13   0.69505939350E-13   0.31632529241E-12
+     0.31531393689E-13   0.22264814638E-13   0.34998726168E-13
+     0.58628352025E-14   0.44762912388E-13   0.79910443810E-13
+     0.68752154888E-14   0.97991301492E-13   0.77724443827E-13
+
+    0.623742768E+09  0.487299038E+00; PREC : DOUBLE; FLAGS : -O0 -march=native 
+
+
+(b) Single precision
+
+[pts/1][curro.gaff: src]$ iteratef < aval_sp.inp 
+     0.62064230741E-02   0.62064230741E-02   0.34102888154E-01
+     0.62064230741E-02   0.39967818106E-01   0.34102888154E-01
+     0.20103401395E-01   0.62064230741E-02   0.44835246888E-01
+     0.39967818106E-01   0.64818839552E-01   0.34102888154E-01
+     0.57909891145E-01   0.20103401395E-01   0.11696950302E-01
+     0.62064230741E-02   0.33093798133E-01   0.44835246888E-01
+     0.64310223083E-01   0.39967818106E-01   0.41670831867E-01
+     0.64818839552E-01   0.79830435042E-01   0.34102888154E-01
+     0.76516828849E-01   0.57909891145E-01   0.35653913748E-01
+     0.20103401395E-01   0.13197612247E-01   0.11696950302E-01
+     0.34040548568E-01   0.62064230741E-02   0.18504150465E-01
+     0.33093798133E-01   0.48842411376E-01   0.44835246888E-01
+     0.48565962551E-01   0.64310223083E-01   0.78414770166E-01
+     0.39967818106E-01   0.26304949404E-01   0.41670831867E-01
+     0.57250475902E-01   0.64818839552E-01   0.67763514222E-01
+     0.79830435042E-01   0.90751392123E-01   0.34102888154E-01
+     0.91236952010E-01   0.76516828849E-01   0.61639734955E-01
+     0.57909891145E-01   0.51064537256E-01   0.35653913748E-01
+     0.20481431847E-01   0.20103401395E-01   0.27834922889E-01
+     0.13197612247E-01   0.12255956142E-02   0.11696950302E-01
+     0.20601395938E-01   0.34040548568E-01   0.46910947302E-01
+
+    0.564338805E+09  0.440889686E+00; PREC : SINGLE; FLAGS : -O0 -march=native 
+
+
+Second version: Increase optimization level to -O3. 
+
+(a) Double precision
+
+[pts/1][curro.gaff: src]$ iteratef < aval.inp 
+     0.74561828111E-13   0.74561828111E-13   0.35539367002E-13
+     0.74561828111E-13   0.68292258717E-13   0.35539367002E-13
+     0.22264814638E-13   0.74561828111E-13   0.22197345503E-13
+     0.68292258717E-13   0.19784403883E-12   0.35539367002E-13
+     0.11116837519E-13   0.22264814638E-13   0.79910443810E-13
+     0.74561828111E-13    0.0000000000       0.22197345503E-13
+     0.14496631464E-12   0.68292258717E-13   0.30091234329E-13
+     0.19784403883E-12   0.46571303978E-13   0.35539367002E-13
+     0.49873184789E-14   0.11116837519E-13   0.31632529241E-12
+     0.22264814638E-13   0.58628352025E-14   0.79910443810E-13
+     0.97991301492E-13   0.74561828111E-13   0.15284825917E-12
+      0.0000000000       0.54569036604E-13   0.22197345503E-13
+     0.55601861420E-13   0.14496631464E-12   0.51006666262E-13
+     0.68292258717E-13   0.78237867491E-13   0.30091234329E-13
+     0.84747510093E-13   0.19784403883E-12   0.70653678451E-13
+     0.46571303978E-13   0.22910795720E-13   0.35539367002E-13
+     0.23062878124E-12   0.49873184789E-14   0.12079356476E-12
+     0.11116837519E-13   0.69505939350E-13   0.31632529241E-12
+     0.31531393689E-13   0.22264814638E-13   0.34998726168E-13
+     0.58628352025E-14   0.44762912388E-13   0.79910443810E-13
+     0.68752154888E-14   0.97991301492E-13   0.77724443827E-13
+
+    0.131139345E+10  0.102452613E+01; PREC : DOUBLE; FLAGS : -O3 -march=native 
+
+(b) Single precision
+
+[pts/1][curro.gaff: src]$ iteratef < aval_sp.inp 
+     0.62064230741E-02   0.62064230741E-02   0.34102888154E-01
+     0.62064230741E-02   0.39967818106E-01   0.34102888154E-01
+     0.20103401395E-01   0.62064230741E-02   0.44835246888E-01
+     0.39967818106E-01   0.64818839552E-01   0.34102888154E-01
+     0.57909891145E-01   0.20103401395E-01   0.11696950302E-01
+     0.62064230741E-02   0.33093798133E-01   0.44835246888E-01
+     0.64310223083E-01   0.39967818106E-01   0.41670831867E-01
+     0.64818839552E-01   0.79830435042E-01   0.34102888154E-01
+     0.76516828849E-01   0.57909891145E-01   0.35653913748E-01
+     0.20103401395E-01   0.13197612247E-01   0.11696950302E-01
+     0.34040548568E-01   0.62064230741E-02   0.18504150465E-01
+     0.33093798133E-01   0.48842411376E-01   0.44835246888E-01
+     0.48565962551E-01   0.64310223083E-01   0.78414770166E-01
+     0.39967818106E-01   0.26304949404E-01   0.41670831867E-01
+     0.57250475902E-01   0.64818839552E-01   0.67763514222E-01
+     0.79830435042E-01   0.90751392123E-01   0.34102888154E-01
+     0.91236952010E-01   0.76516828849E-01   0.61639734955E-01
+     0.57909891145E-01   0.51064537256E-01   0.35653913748E-01
+     0.20481431847E-01   0.20103401395E-01   0.27834922889E-01
+     0.13197612247E-01   0.12255956142E-02   0.11696950302E-01
+     0.20601395938E-01   0.34040548568E-01   0.46910947302E-01
+
+    0.127482160E+10  0.995954394E+00; PREC : SINGLE; FLAGS : -O3 -march=native 
+
+
+Third version:  Improved time without error increase: -O3  -funroll-loops
+
+(a) Double precision
+
+[pts/1][curro.gaff: src]$ iteratef < aval.inp 
+     0.74561828111E-13   0.74561828111E-13   0.35539367002E-13
+     0.74561828111E-13   0.68292258717E-13   0.35539367002E-13
+     0.22264814638E-13   0.74561828111E-13   0.22197345503E-13
+     0.68292258717E-13   0.19784403883E-12   0.35539367002E-13
+     0.11116837519E-13   0.22264814638E-13   0.79910443810E-13
+     0.74561828111E-13    0.0000000000       0.22197345503E-13
+     0.14496631464E-12   0.68292258717E-13   0.30091234329E-13
+     0.19784403883E-12   0.46571303978E-13   0.35539367002E-13
+     0.49873184789E-14   0.11116837519E-13   0.31632529241E-12
+     0.22264814638E-13   0.58628352025E-14   0.79910443810E-13
+     0.97991301492E-13   0.74561828111E-13   0.15284825917E-12
+      0.0000000000       0.54569036604E-13   0.22197345503E-13
+     0.55601861420E-13   0.14496631464E-12   0.51006666262E-13
+     0.68292258717E-13   0.78237867491E-13   0.30091234329E-13
+     0.84747510093E-13   0.19784403883E-12   0.70653678451E-13
+     0.46571303978E-13   0.22910795720E-13   0.35539367002E-13
+     0.23062878124E-12   0.49873184789E-14   0.12079356476E-12
+     0.11116837519E-13   0.69505939350E-13   0.31632529241E-12
+     0.31531393689E-13   0.22264814638E-13   0.34998726168E-13
+     0.58628352025E-14   0.44762912388E-13   0.79910443810E-13
+     0.68752154888E-14   0.97991301492E-13   0.77724443827E-13
+
+    0.172032374E+10  0.134400292E+01; PREC : DOUBLE; FLAGS : -O3 -funroll-loops   -march=native 
+
+(b) Single precision
+
+[pts/1][curro.gaff: src]$ iteratef < aval_sp.inp 
+     0.62064230741E-02   0.62064230741E-02   0.34102888154E-01
+     0.62064230741E-02   0.39967818106E-01   0.34102888154E-01
+     0.20103401395E-01   0.62064230741E-02   0.44835246888E-01
+     0.39967818106E-01   0.64818839552E-01   0.34102888154E-01
+     0.57909891145E-01   0.20103401395E-01   0.11696950302E-01
+     0.62064230741E-02   0.33093798133E-01   0.44835246888E-01
+     0.64310223083E-01   0.39967818106E-01   0.41670831867E-01
+     0.64818839552E-01   0.79830435042E-01   0.34102888154E-01
+     0.76516828849E-01   0.57909891145E-01   0.35653913748E-01
+     0.20103401395E-01   0.13197612247E-01   0.11696950302E-01
+     0.34040548568E-01   0.62064230741E-02   0.18504150465E-01
+     0.33093798133E-01   0.48842411376E-01   0.44835246888E-01
+     0.48565962551E-01   0.64310223083E-01   0.78414770166E-01
+     0.39967818106E-01   0.26304949404E-01   0.41670831867E-01
+     0.57250475902E-01   0.64818839552E-01   0.67763514222E-01
+     0.79830435042E-01   0.90751392123E-01   0.34102888154E-01
+     0.91236952010E-01   0.76516828849E-01   0.61639734955E-01
+     0.57909891145E-01   0.51064537256E-01   0.35653913748E-01
+     0.20481431847E-01   0.20103401395E-01   0.27834922889E-01
+     0.13197612247E-01   0.12255956142E-02   0.11696950302E-01
+     0.20601395938E-01   0.34040548568E-01   0.46910947302E-01
+
+    0.137330513E+10  0.107289457E+01; PREC : SINGLE; FLAGS : -O3 -funroll-loops   -march=native 
+
+
+
+SCADM01 (CLUSTER)
+
+processor	: 0
+vendor_id	: AuthenticAMD
+cpu family	: 21
+model		: 2
+model name	: AMD Opteron(tm) Processor 6344                 
+stepping	: 0
+cpu MHz		: 1400.000
+cache size	: 2048 KB
+physical id	: 0
+siblings	: 12
+core id		: 0
+cpu cores	: 6
+apicid		: 32
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nonstop_tsc extd_apicid amd_dcm aperfmperf pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 popcnt aes xsave avx f16c lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs xop skinit wdt lwp fma4 tce nodeid_msr tbm topoext perfctr_core cpb npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold bmi1
+bogomips	: 5199.70
+TLB size	: 1536 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm 100mhzsteps hwpstate cpb eff_freq_ro
+
+..........................................................
+
+processor	: 23
+vendor_id	: AuthenticAMD
+cpu family	: 21
+model		: 2
+model name	: AMD Opteron(tm) Processor 6344                 
+stepping	: 0
+cpu MHz		: 1400.000
+cache size	: 2048 KB
+physical id	: 1
+siblings	: 12
+core id		: 5
+cpu cores	: 6
+apicid		: 75
+initial apicid	: 43
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nonstop_tsc extd_apicid amd_dcm aperfmperf pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 popcnt aes xsave avx f16c lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs xop skinit wdt lwp fma4 tce nodeid_msr tbm topoext perfctr_core cpb npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold bmi1
+bogomips	: 5199.24
+TLB size	: 1536 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm 100mhzsteps hwpstate cpb eff_freq_ro
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C Compiler
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+[currix@scadm01 src]$ gcc -v
+Usando especificaciones internas.
+Objetivo: x86_64-redhat-linux
+Configurado con: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-languages=c,c++,objc,obj-c++,java,fortran,ada --enable-java-awt=gtk --disable-dssi --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-1.5.0.0/jre --enable-libgcj-multifile --enable-java-maintainer-mode --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --disable-libjava-multilib --with-ppl --with-cloog --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+Modelo de hilos: posix
+gcc versión 4.4.7 20120313 (Red Hat 4.4.7-4) (GCC) 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C Results
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+SCALE 1
+ 3.379e+09  8.296e-01 #   4   8 scale1 float -O3 -ftree-vectorize -ffast-math -funroll-loops
+ 3.436e+09  1.064e-13 #   8  16 scale1 double -O3 -ftree-vectorize -ffast-math -funroll-loops
+SCALE 2
+ 9.729e+09  8.296e-01 #   4   8 scale2 float -O3 -ftree-vectorize -ffast-math -funroll-loops
+ 4.770e+09  1.064e-13 #   8  16 scale2 double -O3 -ftree-vectorize -ffast-math -funroll-loops
+SCALE 3
+ 3.461e+09  8.296e-01 #   4   8 scale3 float -O3 -ftree-vectorize -ffast-math -funroll-loops
+ 3.093e+09  1.064e-13 #   8  16 scale3 double -O3 -ftree-vectorize -ffast-math -funroll-loops
+SCALE 4
+ 1.199e+10  8.296e-01 #   0   0 scale4 float -O3 -ftree-vectorize -ffast-math -funroll-loops
+ 4.834e+09  1.064e-13 #   0   0 scale4 double -O3 -ftree-vectorize -ffast-math -funroll-loops
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Python Results
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[currix@scadm01 src]$ ./iterate_0.py 
+Traceback (most recent call last):
+  File "./iterate_0.py", line 4, in <module>
+    import numpy as np
+ImportError: No module named numpy
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Fortran Results
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+First version. O0 optimization.
+
+(a) Double precision
+
+[currix@scadm01 src]$ make iteratef 
+cpp -std=c89 -DPREC=DP  -DFLAGS="\"-O0 -march=native \"" iterate.f90 > /tmp/iterate.f90
+cpp -std=c89 -DPREC=DP  -DFLAGS="\"-O0 -march=native \"" scale.f90 > /tmp/scale.f90
+gfortran -c -g -Wa,-a,-ad -O0 -march=native  /tmp/scale.f90 /tmp/iterate.f90 > scale.lst
+cpp -std=c89 -DPREC=DP  -DFLAGS="\"-O0 -march=native \"" iterate.f90 > /tmp/iterate.f90
+cpp -std=c89 -DPREC=DP  -DFLAGS="\"-O0 -march=native \"" scale.f90 > /tmp/scale.f90
+gfortran -O0 -march=native  -lm -o iteratef /tmp/scale.f90 /tmp/iterate.f90
+[currix@scadm01 src]$ ./iteratef < aval.inp 
+     0.74561828111E-13   0.74561828111E-13   0.35539367002E-13
+     0.74561828111E-13   0.68292258717E-13   0.35539367002E-13
+     0.22264814638E-13   0.74561828111E-13   0.22197345503E-13
+     0.68292258717E-13   0.19784403883E-12   0.35539367002E-13
+     0.11116837519E-13   0.22264814638E-13   0.79910443810E-13
+     0.74561828111E-13    0.0000000000       0.22197345503E-13
+     0.14496631464E-12   0.68292258717E-13   0.30091234329E-13
+     0.19784403883E-12   0.46571303978E-13   0.35539367002E-13
+     0.49873184789E-14   0.11116837519E-13   0.31632529241E-12
+     0.22264814638E-13   0.58628352025E-14   0.79910443810E-13
+     0.97991301492E-13   0.74561828111E-13   0.15284825917E-12
+      0.0000000000       0.54569036604E-13   0.22197345503E-13
+     0.55601861420E-13   0.14496631464E-12   0.51006666262E-13
+     0.68292258717E-13   0.78237867491E-13   0.30091234329E-13
+     0.84747510093E-13   0.19784403883E-12   0.70653678451E-13
+     0.46571303978E-13   0.22910795720E-13   0.35539367002E-13
+     0.23062878124E-12   0.49873184789E-14   0.12079356476E-12
+     0.11116837519E-13   0.69505939350E-13   0.31632529241E-12
+     0.31531393689E-13   0.22264814638E-13   0.34998726168E-13
+     0.58628352025E-14   0.44762912388E-13   0.79910443810E-13
+     0.68752154888E-14   0.97991301492E-13   0.77724443827E-13
+
+    0.460170615E+09  0.359508293E+00; PREC : DOUBLE; FLAGS : -O0 -march=native 
+
+(b) Single precision
+
+[currix@scadm01 src]$ make iteratef USE_SIMPLE=1
+cpp -std=c89 -DPREC=SP  -DFLAGS="\"-O0 -march=native \"" iterate.f90 > /tmp/iterate.f90
+cpp -std=c89 -DPREC=SP  -DFLAGS="\"-O0 -march=native \"" scale.f90 > /tmp/scale.f90
+gfortran -O0 -march=native  -lm -o iteratef /tmp/scale.f90 /tmp/iterate.f90
+[currix@scadm01 src]$ ./iteratef < aval_sp.inp 
+     0.62064230741E-02   0.62064230741E-02   0.34102888154E-01
+     0.62064230741E-02   0.39967818106E-01   0.34102888154E-01
+     0.20103401395E-01   0.62064230741E-02   0.44835246888E-01
+     0.39967818106E-01   0.64818839552E-01   0.34102888154E-01
+     0.57909891145E-01   0.20103401395E-01   0.11696950302E-01
+     0.62064230741E-02   0.33093798133E-01   0.44835246888E-01
+     0.64310223083E-01   0.39967818106E-01   0.41670831867E-01
+     0.64818839552E-01   0.79830435042E-01   0.34102888154E-01
+     0.76516828849E-01   0.57909891145E-01   0.35653913748E-01
+     0.20103401395E-01   0.13197612247E-01   0.11696950302E-01
+     0.34040548568E-01   0.62064230741E-02   0.18504150465E-01
+     0.33093798133E-01   0.48842411376E-01   0.44835246888E-01
+     0.48565962551E-01   0.64310223083E-01   0.78414770166E-01
+     0.39967818106E-01   0.26304949404E-01   0.41670831867E-01
+     0.57250475902E-01   0.64818839552E-01   0.67763514222E-01
+     0.79830435042E-01   0.90751392123E-01   0.34102888154E-01
+     0.91236952010E-01   0.76516828849E-01   0.61639734955E-01
+     0.57909891145E-01   0.51064537256E-01   0.35653913748E-01
+     0.20481431847E-01   0.20103401395E-01   0.27834922889E-01
+     0.13197612247E-01   0.12255956142E-02   0.11696950302E-01
+     0.20601395938E-01   0.34040548568E-01   0.46910947302E-01
+
+    0.432060334E+09  0.337547123E+00; PREC : SINGLE; FLAGS : -O0 -march=native 
+
+
+Second version: Increase optimization level to -O3. 
+
+(a) Double precision
+
+    [currix@scadm01 src]$ ./iteratef < aval.inp 
+     0.74561828111E-13   0.74561828111E-13   0.35657437988E-13
+     0.74561828111E-13   0.68433943901E-13   0.35657437988E-13
+     0.22467222044E-13   0.74561828111E-13   0.22197345503E-13
+     0.68433943901E-13   0.19784403883E-12   0.35657437988E-13
+     0.11116837519E-13   0.22467222044E-13   0.79910443810E-13
+     0.74561828111E-13    0.0000000000       0.22197345503E-13
+     0.14496631464E-12   0.68433943901E-13   0.30091234329E-13
+     0.19784403883E-12   0.46571303978E-13   0.35657437988E-13
+     0.51006666262E-14   0.11116837519E-13   0.31653519639E-12
+     0.22467222044E-13   0.58628352025E-14   0.79910443810E-13
+     0.98174121084E-13   0.74561828111E-13   0.15284825917E-12
+      0.0000000000       0.54569036604E-13   0.22197345503E-13
+     0.55601861420E-13   0.14496631464E-12   0.51006666262E-13
+     0.68433943901E-13   0.78237867491E-13   0.30091234329E-13
+     0.84747510093E-13   0.19784403883E-12   0.70653678451E-13
+     0.46571303978E-13   0.22910795720E-13   0.35657437988E-13
+     0.23062878124E-12   0.51006666262E-14   0.12079356476E-12
+     0.11116837519E-13   0.69505939350E-13   0.31653519639E-12
+     0.31531393689E-13   0.22467222044E-13   0.34998726168E-13
+     0.58628352025E-14   0.44762912388E-13   0.79910443810E-13
+     0.68752154888E-14   0.98174121084E-13   0.77724443827E-13
+
+    0.180818543E+10  0.141264487E+01; PREC : DOUBLE; FLAGS : -O3 -march=native 
+
+(b) Single precision
+
+[currix@scadm01 src]$ ./iteratef < aval_sp.inp 
+     0.62064230741E-02   0.62064230741E-02   0.17015221251E-01
+     0.62064230741E-02   0.18155747555E-01   0.17015221251E-01
+     0.17866055042E-01   0.62064230741E-02   0.19746307967E-01
+     0.18155747555E-01   0.23628167161E-02   0.17015221251E-01
+     0.22568789745E-01   0.17866055042E-01   0.34096222595E-01
+     0.62064230741E-02   0.14772530759E-01   0.19746307967E-01
+     0.19835726673E-01   0.18155747555E-01   0.10521664945E-01
+     0.23628167161E-02   0.72931961288E-02   0.17015221251E-01
+     0.27607177347E-01   0.22568789745E-01   0.19757777838E-01
+     0.17866055042E-01   0.25551416236E-01   0.34096222595E-01
+     0.13000572939E-01   0.62064230741E-02   0.10851118539E-01
+     0.14772530759E-01   0.17515533162E-01   0.19746307967E-01
+     0.19941799077E-01   0.19835726673E-01   0.19096359977E-01
+     0.18155747555E-01   0.14346437743E-01   0.10521664945E-01
+     0.64312902251E-02   0.23628167161E-02   0.25021185174E-02
+     0.72931961288E-02   0.12198122989E-01   0.17015221251E-01
+     0.24639964612E-01   0.27607177347E-01   0.24973570467E-01
+     0.22568789745E-01   0.21080695988E-01   0.19757777838E-01
+     0.18746252244E-01   0.17866055042E-01   0.19411646242E-01
+     0.25551416236E-01   0.31617332613E-01   0.34096222595E-01
+     0.23332192024E-01   0.13000572939E-01   0.32064175679E-02
+
+    0.179048032E+10  0.139881277E+01; PREC : SINGLE; FLAGS : -O3 -march=native 
+
+
+Third version:  Improved time without error increase: -O3  -funroll-loops
+
+(a) Double precision
+
+[currix@scadm01 src]$ ./iteratef < aval.inp 
+     0.74561828111E-13   0.74561828111E-13   0.35657437988E-13
+     0.74561828111E-13   0.68433943901E-13   0.35657437988E-13
+     0.22467222044E-13   0.74561828111E-13   0.22197345503E-13
+     0.68433943901E-13   0.19784403883E-12   0.35657437988E-13
+     0.11116837519E-13   0.22467222044E-13   0.79910443810E-13
+     0.74561828111E-13    0.0000000000       0.22197345503E-13
+     0.14496631464E-12   0.68433943901E-13   0.30091234329E-13
+     0.19784403883E-12   0.46571303978E-13   0.35657437988E-13
+     0.51006666262E-14   0.11116837519E-13   0.31653519639E-12
+     0.22467222044E-13   0.58628352025E-14   0.79910443810E-13
+     0.98174121084E-13   0.74561828111E-13   0.15284825917E-12
+      0.0000000000       0.54569036604E-13   0.22197345503E-13
+     0.55601861420E-13   0.14496631464E-12   0.51006666262E-13
+     0.68433943901E-13   0.78237867491E-13   0.30091234329E-13
+     0.84747510093E-13   0.19784403883E-12   0.70653678451E-13
+     0.46571303978E-13   0.22910795720E-13   0.35657437988E-13
+     0.23062878124E-12   0.51006666262E-14   0.12079356476E-12
+     0.11116837519E-13   0.69505939350E-13   0.31653519639E-12
+     0.31531393689E-13   0.22467222044E-13   0.34998726168E-13
+     0.58628352025E-14   0.44762912388E-13   0.79910443810E-13
+     0.68752154888E-14   0.98174121084E-13   0.77724443827E-13
+
+    0.278909638E+10  0.217898154E+01; PREC : DOUBLE; FLAGS : -O3 -funroll-loops   -march=native 
+
+(b)  Single precision
+
+[currix@scadm01 src]$ ./iteratef < aval_sp.inp 
+     0.62064230741E-02   0.62064230741E-02   0.17015221251E-01
+     0.62064230741E-02   0.18155747555E-01   0.17015221251E-01
+     0.17866055042E-01   0.62064230741E-02   0.19746307967E-01
+     0.18155747555E-01   0.23628167161E-02   0.17015221251E-01
+     0.22568789745E-01   0.17866055042E-01   0.34096222595E-01
+     0.62064230741E-02   0.14772530759E-01   0.19746307967E-01
+     0.19835726673E-01   0.18155747555E-01   0.10521664945E-01
+     0.23628167161E-02   0.72931961288E-02   0.17015221251E-01
+     0.27607177347E-01   0.22568789745E-01   0.19757777838E-01
+     0.17866055042E-01   0.25551416236E-01   0.34096222595E-01
+     0.13000572939E-01   0.62064230741E-02   0.10851118539E-01
+     0.14772530759E-01   0.17515533162E-01   0.19746307967E-01
+     0.19941799077E-01   0.19835726673E-01   0.19096359977E-01
+     0.18155747555E-01   0.14346437743E-01   0.10521664945E-01
+     0.64312902251E-02   0.23628167161E-02   0.25021185174E-02
+     0.72931961288E-02   0.12198122989E-01   0.17015221251E-01
+     0.24639964612E-01   0.27607177347E-01   0.24973570467E-01
+     0.22568789745E-01   0.21080695988E-01   0.19757777838E-01
+     0.18746252244E-01   0.17866055042E-01   0.19411646242E-01
+     0.25551416236E-01   0.31617332613E-01   0.34096222595E-01
+     0.23332192024E-01   0.13000572939E-01   0.32064175679E-02
+
+    0.276500278E+10  0.216015840E+01; PREC : SINGLE; FLAGS : -O3 -funroll-loops   -march=native 
