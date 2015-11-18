@@ -11,10 +11,11 @@ PROGRAM TEAMCAKE_CPB_STATIC
   ! Order of the Central Moving Average p = 2 n + 1
   INTEGER(KIND = I4B), PARAMETER :: n_val = 20, p_val = 2*n_val + 1
   ! Vector dimension
-  INTEGER(KIND = I4B), PARAMETER :: dim_data = 8171
+  INTEGER(KIND = I4B), PARAMETER :: dim_data = 24513
   !
   INTEGER(KIND = I4B) :: index, iam, nt, ipoints, istart, min_index, max_index, dim, IERR
   REAL(KIND = DP), DIMENSION(0:dim_data-1) :: data, cma_data
+  REAL(KIND = DP) :: time_start, time_end
   !
   ! Read Data File to skip one row
   READ(*,*) index
@@ -23,6 +24,9 @@ PROGRAM TEAMCAKE_CPB_STATIC
      READ(*,*) data(index)
   ENDDO
   !
+  ! Set time start
+  CALL CPU_TIME(time_start)
+  !
   !$OMP PARALLEL PRIVATE(iam,nt,ipoints,istart,index, dim, min_index, max_index)
   iam = OMP_GET_THREAD_NUM()
   nt =  OMP_GET_NUM_THREADS()
@@ -30,7 +34,6 @@ PROGRAM TEAMCAKE_CPB_STATIC
   istart = iam * ipoints
   dim = p_val
   !
-  WRITE(*,*) "# #", index, min_index, max_index, dim, iam, nt, ipoints, istart
   ! Last Task
   if (iam .EQ. nt-1) then
      ipoints=dim_data - istart 
@@ -58,6 +61,12 @@ PROGRAM TEAMCAKE_CPB_STATIC
   ENDDO
   !
   !$OMP END PARALLEL
+  !
+  !
+  ! Set time end
+  CALL CPU_TIME(time_end)
+  !
+  WRITE(*,*) "##", time_end-time_start
   !
   ! PROGRAM OUTPUT
   DO index = 0, dim_data-1

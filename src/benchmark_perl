@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Benchmark qw( timethese cmpthese ) ;
+my $CNT=100;
+my $r = timethese( $CNT, {
+                       #                       a => sub{system "ls -lrth  > out_1"},
+                       #                       b => sub{system "ls -alrth > out_2"}
+		       a => sub{system "./teamcake_CPB < CCEEtoutH2014.dat > out_1"},
+		       b => sub{system "./teamcake_CPB_single < CCEEtoutH2014.dat > out_2"}
+		      } );
+cmpthese $r;

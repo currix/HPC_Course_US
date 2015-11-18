@@ -9,7 +9,7 @@ OPT = -O3 -ftree-vectorize -funroll-loops
 INFO=-fopt-info-vec-optimized
 #INFO=-fopt-info-all
 
-# MP settings
+# MP Flags
 MPFLAGS = -fopenmp
 
 ## SCALE and MANDEL can be passed as command line args
@@ -43,6 +43,9 @@ teamcake_CPB:	teamcake_CPB.f90 Makefile .FORCE teamcake_CPB.lst
 
 teamcake_CPB.lst:	teamcake_CPB.f90 Makefile
 	$(FC) -c -g -Wa,-a,-ad $(OPTFLAGS) $(INFO) $(MPFLAGS) $< > $@
+
+teamcake_CPB_single:	teamcake_CPB_single.f90 Makefile .FORCE
+	$(FC) $(OPTFLAGS) $(INFO)  -o $@ $<
 
 teamcake_CPB_static:	teamcake_CPB_static.f90 Makefile .FORCE teamcake_CPB_static.lst
 	$(FC) $(OPTFLAGS) $(INFO) $(MPFLAGS) -o $@ $<
