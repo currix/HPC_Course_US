@@ -1,0 +1,1303 @@
+GAS LISTING /tmp/ccYXDlOX.s 			page 1
+
+
+   1              		.file	"teamcake_CPB_static.f90"
+   2              		.text
+   3              	.Ltext0:
+   4              		.section	.rodata.str1.1,"aMS",@progbits,1
+   5              	.LC1:
+   6 0000 7465616D 		.string	"teamcake_CPB_static.f90"
+   6      63616B65 
+   6      5F435042 
+   6      5F737461 
+   6      7469632E 
+   7              		.section	.rodata
+   8              	.LC2:
+   9 0000 232023   		.ascii	"# #"
+  10              		.section	.text.unlikely,"ax",@progbits
+  11              	.LCOLDB3:
+  12              		.text
+  13              	.LHOTB3:
+  14              		.p2align 4,,15
+  15              		.section	.text.unlikely
+  16              	.Ltext_cold0:
+  17              		.text
+  19              	MAIN__._omp_fn.0:
+  20              	.LFB2:
+  21              		.file 1 "teamcake_CPB_static.f90"
+   1:teamcake_CPB_static.f90 **** PROGRAM TEAMCAKE_CPB_STATIC
+   2:teamcake_CPB_static.f90 ****   !
+   3:teamcake_CPB_static.f90 ****   IMPLICIT NONE
+   4:teamcake_CPB_static.f90 ****   !
+   5:teamcake_CPB_static.f90 ****   !$    INCLUDE "omp_lib.h"
+   6:teamcake_CPB_static.f90 ****   INTEGER, PARAMETER :: I4B = SELECTED_INT_KIND(9)
+   7:teamcake_CPB_static.f90 ****   !
+   8:teamcake_CPB_static.f90 ****   INTEGER, PARAMETER :: SP = KIND(1.0)
+   9:teamcake_CPB_static.f90 ****   INTEGER, PARAMETER :: DP = KIND(1.0D0)
+  10:teamcake_CPB_static.f90 ****   !
+  11:teamcake_CPB_static.f90 ****   ! Order of the Central Moving Average p = 2 n + 1
+  12:teamcake_CPB_static.f90 ****   INTEGER(KIND = I4B), PARAMETER :: n_val = 20, p_val = 2*n_val + 1
+  13:teamcake_CPB_static.f90 ****   ! Vector dimension
+  14:teamcake_CPB_static.f90 ****   INTEGER(KIND = I4B), PARAMETER :: dim_data = 8171
+  15:teamcake_CPB_static.f90 ****   !
+  16:teamcake_CPB_static.f90 ****   INTEGER(KIND = I4B) :: index, iam, nt, ipoints, istart, min_index, max_index, dim, IERR
+  17:teamcake_CPB_static.f90 ****   REAL(KIND = DP), DIMENSION(0:dim_data-1) :: data, cma_data
+  18:teamcake_CPB_static.f90 ****   !
+  19:teamcake_CPB_static.f90 ****   ! Read Data File to skip one row
+  20:teamcake_CPB_static.f90 ****   READ(*,*) index
+  21:teamcake_CPB_static.f90 ****   !
+  22:teamcake_CPB_static.f90 ****   DO index = 0, dim_data-1
+  23:teamcake_CPB_static.f90 ****      READ(*,*) data(index)
+  24:teamcake_CPB_static.f90 ****   ENDDO
+  25:teamcake_CPB_static.f90 ****   !
+  26:teamcake_CPB_static.f90 ****   !$OMP PARALLEL PRIVATE(iam,nt,ipoints,istart,index, dim, min_index, max_index)
+  22              		.loc 1 26 0
+  23              		.cfi_startproc
+  24              	.LVL0:
+  25 0000 4157     		pushq	%r15
+  26              		.cfi_def_cfa_offset 16
+  27              		.cfi_offset 15, -16
+  27:teamcake_CPB_static.f90 ****   iam = OMP_GET_THREAD_NUM()
+GAS LISTING /tmp/ccYXDlOX.s 			page 2
+
+
+  28              		.loc 1 27 0
+  29 0002 31C0     		xorl	%eax, %eax
+  28:teamcake_CPB_static.f90 ****   nt =  OMP_GET_NUM_THREADS()
+  29:teamcake_CPB_static.f90 ****   ipoints = dim_data / nt
+  30              		.loc 1 29 0
+  31 0004 41BFEB1F 		movl	$8171, %r15d
+  31      0000
+  26:teamcake_CPB_static.f90 ****   iam = OMP_GET_THREAD_NUM()
+  32              		.loc 1 26 0
+  33 000a 4156     		pushq	%r14
+  34              		.cfi_def_cfa_offset 24
+  35              		.cfi_offset 14, -24
+  36 000c 4155     		pushq	%r13
+  37              		.cfi_def_cfa_offset 32
+  38              		.cfi_offset 13, -32
+  39 000e 4154     		pushq	%r12
+  40              		.cfi_def_cfa_offset 40
+  41              		.cfi_offset 12, -40
+  42 0010 55       		pushq	%rbp
+  43              		.cfi_def_cfa_offset 48
+  44              		.cfi_offset 6, -48
+  45 0011 53       		pushq	%rbx
+  46              		.cfi_def_cfa_offset 56
+  47              		.cfi_offset 3, -56
+  48 0012 4889FB   		movq	%rdi, %rbx
+  49 0015 4881EC08 		subq	$520, %rsp
+  49      020000
+  50              		.cfi_def_cfa_offset 576
+  27:teamcake_CPB_static.f90 ****   iam = OMP_GET_THREAD_NUM()
+  51              		.loc 1 27 0
+  52 001c E8000000 		call	omp_get_thread_num_
+  52      00
+  53              	.LVL1:
+  54 0021 4189C6   		movl	%eax, %r14d
+  55 0024 890424   		movl	%eax, (%rsp)
+  28:teamcake_CPB_static.f90 ****   nt =  OMP_GET_NUM_THREADS()
+  56              		.loc 1 28 0
+  57 0027 31C0     		xorl	%eax, %eax
+  58 0029 E8000000 		call	omp_get_num_threads_
+  58      00
+  59              	.LVL2:
+  30:teamcake_CPB_static.f90 ****   istart = iam * ipoints
+  60              		.loc 1 30 0
+  61 002e 4489F5   		movl	%r14d, %ebp
+  31:teamcake_CPB_static.f90 ****   dim = p_val
+  62              		.loc 1 31 0
+  63 0031 C7442410 		movl	$41, 16(%rsp)
+  63      29000000 
+  28:teamcake_CPB_static.f90 ****   ipoints = dim_data / nt
+  64              		.loc 1 28 0
+  65 0039 89442404 		movl	%eax, 4(%rsp)
+  66 003d 4189C5   		movl	%eax, %r13d
+  29:teamcake_CPB_static.f90 ****   istart = iam * ipoints
+  67              		.loc 1 29 0
+  68 0040 4489F8   		movl	%r15d, %eax
+  69              	.LBB2:
+  32:teamcake_CPB_static.f90 ****   !
+GAS LISTING /tmp/ccYXDlOX.s 			page 3
+
+
+  33:teamcake_CPB_static.f90 ****   WRITE(*,*) "# #", index, min_index, max_index, dim, iam, nt, ipoints, istart
+  70              		.loc 1 33 0
+  71 0043 488D7C24 		leaq	32(%rsp), %rdi
+  71      20
+  72              	.LBE2:
+  29:teamcake_CPB_static.f90 ****   istart = iam * ipoints
+  73              		.loc 1 29 0
+  74 0048 99       		cltd
+  75              	.LBB3:
+  76              		.loc 1 33 0
+  77 0049 48C74424 		movq	$.LC1, 40(%rsp)
+  77      28000000 
+  77      00
+  78              	.LBE3:
+  29:teamcake_CPB_static.f90 ****   istart = iam * ipoints
+  79              		.loc 1 29 0
+  80 0052 41F7FD   		idivl	%r13d
+  81              	.LBB4:
+  82              		.loc 1 33 0
+  83 0055 C7442430 		movl	$33, 48(%rsp)
+  83      21000000 
+  84              	.LBE4:
+  34:teamcake_CPB_static.f90 ****   ! Last Task
+  35:teamcake_CPB_static.f90 ****   if (iam .EQ. nt-1) then
+  85              		.loc 1 35 0
+  86 005d 4183ED01 		subl	$1, %r13d
+  87              	.LBB5:
+  33:teamcake_CPB_static.f90 ****   ! Last Task
+  88              		.loc 1 33 0
+  89 0061 C7442420 		movl	$128, 32(%rsp)
+  89      80000000 
+  90 0069 C7442424 		movl	$6, 36(%rsp)
+  90      06000000 
+  91              	.LBE5:
+  30:teamcake_CPB_static.f90 ****   dim = p_val
+  92              		.loc 1 30 0
+  93 0071 0FAFE8   		imull	%eax, %ebp
+  29:teamcake_CPB_static.f90 ****   istart = iam * ipoints
+  94              		.loc 1 29 0
+  95 0074 4189C4   		movl	%eax, %r12d
+  96 0077 89442408 		movl	%eax, 8(%rsp)
+  30:teamcake_CPB_static.f90 ****   dim = p_val
+  97              		.loc 1 30 0
+  98 007b 896C240C 		movl	%ebp, 12(%rsp)
+  99              	.LBB6:
+  33:teamcake_CPB_static.f90 ****   ! Last Task
+ 100              		.loc 1 33 0
+ 101 007f E8000000 		call	_gfortran_st_write
+ 101      00
+ 102              	.LVL3:
+ 103 0084 BA030000 		movl	$3, %edx
+ 103      00
+ 104 0089 BE000000 		movl	$.LC2, %esi
+ 104      00
+ 105 008e 488D7C24 		leaq	32(%rsp), %rdi
+ 105      20
+ 106 0093 E8000000 		call	_gfortran_transfer_character_write
+GAS LISTING /tmp/ccYXDlOX.s 			page 4
+
+
+ 106      00
+ 107              	.LVL4:
+ 108 0098 488D7424 		leaq	20(%rsp), %rsi
+ 108      14
+ 109 009d BA040000 		movl	$4, %edx
+ 109      00
+ 110 00a2 488D7C24 		leaq	32(%rsp), %rdi
+ 110      20
+ 111 00a7 E8000000 		call	_gfortran_transfer_integer_write
+ 111      00
+ 112              	.LVL5:
+ 113 00ac 488D7424 		leaq	24(%rsp), %rsi
+ 113      18
+ 114 00b1 BA040000 		movl	$4, %edx
+ 114      00
+ 115 00b6 488D7C24 		leaq	32(%rsp), %rdi
+ 115      20
+ 116 00bb E8000000 		call	_gfortran_transfer_integer_write
+ 116      00
+ 117              	.LVL6:
+ 118 00c0 488D7424 		leaq	28(%rsp), %rsi
+ 118      1C
+ 119 00c5 BA040000 		movl	$4, %edx
+ 119      00
+ 120 00ca 488D7C24 		leaq	32(%rsp), %rdi
+ 120      20
+ 121 00cf E8000000 		call	_gfortran_transfer_integer_write
+ 121      00
+ 122              	.LVL7:
+ 123 00d4 488D7424 		leaq	16(%rsp), %rsi
+ 123      10
+ 124 00d9 BA040000 		movl	$4, %edx
+ 124      00
+ 125 00de 488D7C24 		leaq	32(%rsp), %rdi
+ 125      20
+ 126 00e3 E8000000 		call	_gfortran_transfer_integer_write
+ 126      00
+ 127              	.LVL8:
+ 128 00e8 BA040000 		movl	$4, %edx
+ 128      00
+ 129 00ed 4889E6   		movq	%rsp, %rsi
+ 130 00f0 488D7C24 		leaq	32(%rsp), %rdi
+ 130      20
+ 131 00f5 E8000000 		call	_gfortran_transfer_integer_write
+ 131      00
+ 132              	.LVL9:
+ 133 00fa 488D7424 		leaq	4(%rsp), %rsi
+ 133      04
+ 134 00ff BA040000 		movl	$4, %edx
+ 134      00
+ 135 0104 488D7C24 		leaq	32(%rsp), %rdi
+ 135      20
+ 136 0109 E8000000 		call	_gfortran_transfer_integer_write
+ 136      00
+ 137              	.LVL10:
+ 138 010e 488D7424 		leaq	8(%rsp), %rsi
+ 138      08
+GAS LISTING /tmp/ccYXDlOX.s 			page 5
+
+
+ 139 0113 BA040000 		movl	$4, %edx
+ 139      00
+ 140 0118 488D7C24 		leaq	32(%rsp), %rdi
+ 140      20
+ 141 011d E8000000 		call	_gfortran_transfer_integer_write
+ 141      00
+ 142              	.LVL11:
+ 143 0122 488D7424 		leaq	12(%rsp), %rsi
+ 143      0C
+ 144 0127 BA040000 		movl	$4, %edx
+ 144      00
+ 145 012c 488D7C24 		leaq	32(%rsp), %rdi
+ 145      20
+ 146 0131 E8000000 		call	_gfortran_transfer_integer_write
+ 146      00
+ 147              	.LVL12:
+ 148 0136 488D7C24 		leaq	32(%rsp), %rdi
+ 148      20
+ 149 013b E8000000 		call	_gfortran_st_write_done
+ 149      00
+ 150              	.LVL13:
+ 151              	.LBE6:
+ 152              		.loc 1 35 0
+ 153 0140 4539EE   		cmpl	%r13d, %r14d
+ 154 0143 0F846502 		je	.L2
+ 154      0000
+ 155              	.L13:
+ 156              	.LBB7:
+  36:teamcake_CPB_static.f90 ****      ipoints=dim_data - istart 
+  37:teamcake_CPB_static.f90 ****   endif
+  38:teamcake_CPB_static.f90 ****   !
+  39:teamcake_CPB_static.f90 ****   WRITE(FMT=*,UNIT=200) "# #", iam, nt, ipoints, istart, dim
+ 157              		.loc 1 39 0
+ 158 0149 488D7C24 		leaq	32(%rsp), %rdi
+ 158      20
+ 159 014e C7442430 		movl	$39, 48(%rsp)
+ 159      27000000 
+ 160 0156 48C74424 		movq	$.LC1, 40(%rsp)
+ 160      28000000 
+ 160      00
+ 161 015f C7442420 		movl	$128, 32(%rsp)
+ 161      80000000 
+ 162 0167 C7442424 		movl	$200, 36(%rsp)
+ 162      C8000000 
+ 163 016f E8000000 		call	_gfortran_st_write
+ 163      00
+ 164              	.LVL14:
+ 165 0174 BA030000 		movl	$3, %edx
+ 165      00
+ 166 0179 BE000000 		movl	$.LC2, %esi
+ 166      00
+ 167 017e 488D7C24 		leaq	32(%rsp), %rdi
+ 167      20
+ 168 0183 E8000000 		call	_gfortran_transfer_character_write
+ 168      00
+ 169              	.LVL15:
+ 170 0188 BA040000 		movl	$4, %edx
+GAS LISTING /tmp/ccYXDlOX.s 			page 6
+
+
+ 170      00
+ 171 018d 4889E6   		movq	%rsp, %rsi
+ 172 0190 488D7C24 		leaq	32(%rsp), %rdi
+ 172      20
+ 173 0195 E8000000 		call	_gfortran_transfer_integer_write
+ 173      00
+ 174              	.LVL16:
+ 175 019a 488D7424 		leaq	4(%rsp), %rsi
+ 175      04
+ 176 019f BA040000 		movl	$4, %edx
+ 176      00
+ 177 01a4 488D7C24 		leaq	32(%rsp), %rdi
+ 177      20
+ 178 01a9 E8000000 		call	_gfortran_transfer_integer_write
+ 178      00
+ 179              	.LVL17:
+ 180 01ae 488D7424 		leaq	8(%rsp), %rsi
+ 180      08
+ 181 01b3 BA040000 		movl	$4, %edx
+ 181      00
+ 182 01b8 488D7C24 		leaq	32(%rsp), %rdi
+ 182      20
+ 183 01bd E8000000 		call	_gfortran_transfer_integer_write
+ 183      00
+ 184              	.LVL18:
+ 185 01c2 488D7424 		leaq	12(%rsp), %rsi
+ 185      0C
+ 186 01c7 BA040000 		movl	$4, %edx
+ 186      00
+ 187 01cc 488D7C24 		leaq	32(%rsp), %rdi
+ 187      20
+ 188 01d1 E8000000 		call	_gfortran_transfer_integer_write
+ 188      00
+ 189              	.LVL19:
+ 190 01d6 488D7424 		leaq	16(%rsp), %rsi
+ 190      10
+ 191 01db BA040000 		movl	$4, %edx
+ 191      00
+ 192 01e0 488D7C24 		leaq	32(%rsp), %rdi
+ 192      20
+ 193 01e5 E8000000 		call	_gfortran_transfer_integer_write
+ 193      00
+ 194              	.LVL20:
+ 195 01ea 488D7C24 		leaq	32(%rsp), %rdi
+ 195      20
+ 196 01ef E8000000 		call	_gfortran_st_write_done
+ 196      00
+ 197              	.LVL21:
+ 198              	.LBE7:
+ 199              	.LBB8:
+  40:teamcake_CPB_static.f90 ****   !
+  41:teamcake_CPB_static.f90 ****   DO index = istart, istart + ipoints - 1
+ 200              		.loc 1 41 0
+ 201 01f4 428D7C25 		leal	0(%rbp,%r12), %edi
+ 201      00
+ 202 01f9 896C2414 		movl	%ebp, 20(%rsp)
+ 203 01fd 39FD     		cmpl	%edi, %ebp
+GAS LISTING /tmp/ccYXDlOX.s 			page 7
+
+
+ 204 01ff 0F8D7301 		jge	.L50
+ 204      0000
+ 205 0205 4C8B1B   		movq	(%rbx), %r11
+ 206 0208 4C63CD   		movslq	%ebp, %r9
+ 207 020b 83EF14   		subl	$20, %edi
+ 208 020e 41BCEA1F 		movl	$8170, %r12d
+ 208      0000
+ 209 0214 448D45EC 		leal	-20(%rbp), %r8d
+ 210              	.LBB9:
+ 211              	.LBB10:
+ 212              	.LBB11:
+  42:teamcake_CPB_static.f90 ****      !
+  43:teamcake_CPB_static.f90 ****      ! CMA
+  44:teamcake_CPB_static.f90 ****      min_index = index - n_val
+  45:teamcake_CPB_static.f90 ****      max_index = index + n_val
+  46:teamcake_CPB_static.f90 ****      !
+  47:teamcake_CPB_static.f90 ****      IF (min_index < 0) THEN
+  48:teamcake_CPB_static.f90 ****         min_index = 0
+  49:teamcake_CPB_static.f90 ****      ELSE IF (max_index > dim_data - 1) THEN
+  50:teamcake_CPB_static.f90 ****         max_index = dim_data - 1
+  51:teamcake_CPB_static.f90 ****      ENDIF
+  52:teamcake_CPB_static.f90 ****      !
+  53:teamcake_CPB_static.f90 ****      dim = max_index - min_index + 1
+  54:teamcake_CPB_static.f90 ****      !
+  55:teamcake_CPB_static.f90 ****      !
+  56:teamcake_CPB_static.f90 ****      cma_data(index) = SUM(data(min_index:max_index))/REAL(dim,DP)
+ 213              		.loc 1 56 0
+ 214 0218 C5E957D2 		vxorpd	%xmm2, %xmm2, %xmm2
+ 215 021c 8D7514   		leal	20(%rbp), %esi
+ 216 021f BDEA1F00 		movl	$8170, %ebp
+ 216      00
+ 217 0224 4D8D51EC 		leaq	-20(%r9), %r10
+ 218 0228 4983C114 		addq	$20, %r9
+ 219 022c 0F1F4000 		.p2align 4,,10
+ 220              		.p2align 3
+ 221              	.L8:
+ 222              	.LBE11:
+ 223              	.LBE10:
+  44:teamcake_CPB_static.f90 ****      max_index = index + n_val
+ 224              		.loc 1 44 0
+ 225 0230 4589C7   		movl	%r8d, %r15d
+  45:teamcake_CPB_static.f90 ****      !
+ 226              		.loc 1 45 0
+ 227 0233 89F1     		movl	%esi, %ecx
+  47:teamcake_CPB_static.f90 ****         min_index = 0
+ 228              		.loc 1 47 0
+ 229 0235 4585C0   		testl	%r8d, %r8d
+ 230 0238 0F885201 		js	.L54
+ 230      0000
+ 231 023e 81FEEB1F 		cmpl	$8171, %esi
+ 231      0000
+ 232 0244 89E9     		movl	%ebp, %ecx
+ 233 0246 4D89E5   		movq	%r12, %r13
+ 234 0249 0F4CCE   		cmovl	%esi, %ecx
+ 235 024c 4D89D6   		movq	%r10, %r14
+ 236 024f 4D0F4CE9 		cmovl	%r9, %r13
+  53:teamcake_CPB_static.f90 ****      !
+GAS LISTING /tmp/ccYXDlOX.s 			page 8
+
+
+ 237              		.loc 1 53 0
+ 238 0253 4429F9   		subl	%r15d, %ecx
+ 239 0256 83C101   		addl	$1, %ecx
+ 240              	.LBB14:
+ 241              	.LBB12:
+ 242              		.loc 1 56 0
+ 243 0259 4D39EE   		cmpq	%r13, %r14
+ 244 025c 0F8F4601 		jg	.L55
+ 244      0000
+ 245              	.L6:
+ 246 0262 488B5308 		movq	8(%rbx), %rdx
+ 247 0266 4A8D04ED 		leaq	8(,%r13,8), %rax
+ 247      08000000 
+ 248 026e 4E8D34F2 		leaq	(%rdx,%r14,8), %r14
+ 249 0272 4801C2   		addq	%rax, %rdx
+ 250 0275 4D8D7E08 		leaq	8(%r14), %r15
+ 251 0279 C4C16B58 		vaddsd	(%r14), %xmm2, %xmm0
+ 251      06
+ 252 027e 4989D5   		movq	%rdx, %r13
+ 253 0281 4D29F5   		subq	%r14, %r13
+ 254 0284 4983ED08 		subq	$8, %r13
+ 255 0288 49C1ED03 		shrq	$3, %r13
+ 256 028c 4183E507 		andl	$7, %r13d
+ 257 0290 4939D7   		cmpq	%rdx, %r15
+ 258 0293 0F84AF00 		je	.L9
+ 258      0000
+ 259 0299 4D85ED   		testq	%r13, %r13
+ 260 029c 7472     		je	.L10
+ 261 029e 4983FD01 		cmpq	$1, %r13
+ 262 02a2 7455     		je	.L35
+ 263 02a4 4983FD02 		cmpq	$2, %r13
+ 264 02a8 7446     		je	.L36
+ 265 02aa 4983FD03 		cmpq	$3, %r13
+ 266 02ae 7437     		je	.L37
+ 267 02b0 4983FD04 		cmpq	$4, %r13
+ 268 02b4 7428     		je	.L38
+ 269 02b6 4983FD05 		cmpq	$5, %r13
+ 270 02ba 7419     		je	.L39
+ 271 02bc 4983FD06 		cmpq	$6, %r13
+ 272 02c0 740A     		je	.L40
+ 273 02c2 C4C17B58 		vaddsd	8(%r14), %xmm0, %xmm0
+ 273      4608
+ 274 02c8 4D8D7E10 		leaq	16(%r14), %r15
+ 275              	.L40:
+ 276 02cc C4C17B58 		vaddsd	(%r15), %xmm0, %xmm0
+ 276      07
+ 277 02d1 4983C708 		addq	$8, %r15
+ 278              	.L39:
+ 279 02d5 C4C17B58 		vaddsd	(%r15), %xmm0, %xmm0
+ 279      07
+ 280 02da 4983C708 		addq	$8, %r15
+ 281              	.L38:
+ 282 02de C4C17B58 		vaddsd	(%r15), %xmm0, %xmm0
+ 282      07
+ 283 02e3 4983C708 		addq	$8, %r15
+ 284              	.L37:
+ 285 02e7 C4C17B58 		vaddsd	(%r15), %xmm0, %xmm0
+GAS LISTING /tmp/ccYXDlOX.s 			page 9
+
+
+ 285      07
+ 286 02ec 4983C708 		addq	$8, %r15
+ 287              	.L36:
+ 288 02f0 C4C17B58 		vaddsd	(%r15), %xmm0, %xmm0
+ 288      07
+ 289 02f5 4983C708 		addq	$8, %r15
+ 290              	.L35:
+ 291 02f9 C4C17B58 		vaddsd	(%r15), %xmm0, %xmm0
+ 291      07
+ 292 02fe 4983C708 		addq	$8, %r15
+ 293 0302 4939D7   		cmpq	%rdx, %r15
+ 294 0305 7441     		je	.L9
+ 295 0307 660F1F84 		.p2align 4,,10
+ 295      00000000 
+ 295      00
+ 296              		.p2align 3
+ 297              	.L10:
+ 298              		.loc 1 56 0 is_stmt 0 discriminator 3
+ 299 0310 C4C17B58 		vaddsd	(%r15), %xmm0, %xmm1
+ 299      0F
+ 300 0315 4983C740 		addq	$64, %r15
+ 301 0319 C4C17358 		vaddsd	-56(%r15), %xmm1, %xmm3
+ 301      5FC8
+ 302 031f C4C16358 		vaddsd	-48(%r15), %xmm3, %xmm4
+ 302      67D0
+ 303 0325 C4C15B58 		vaddsd	-40(%r15), %xmm4, %xmm5
+ 303      6FD8
+ 304 032b C4C15358 		vaddsd	-32(%r15), %xmm5, %xmm6
+ 304      77E0
+ 305 0331 C4C14B58 		vaddsd	-24(%r15), %xmm6, %xmm7
+ 305      7FE8
+ 306 0337 C4414358 		vaddsd	-16(%r15), %xmm7, %xmm8
+ 306      47F0
+ 307 033d C4C13B58 		vaddsd	-8(%r15), %xmm8, %xmm0
+ 307      47F8
+ 308 0343 4939D7   		cmpq	%rdx, %r15
+ 309 0346 75C8     		jne	.L10
+ 310              	.L9:
+ 311              	.LBE12:
+ 312              		.loc 1 56 0 discriminator 2
+ 313 0348 C4413157 		vxorpd	%xmm9, %xmm9, %xmm9
+ 313      C9
+ 314 034d 4183C001 		addl	$1, %r8d
+ 315 0351 83C601   		addl	$1, %esi
+ 316 0354 4983C101 		addq	$1, %r9
+ 317 0358 C5332AD1 		vcvtsi2sd	%ecx, %xmm9, %xmm10
+ 318 035c C4417B5E 		vdivsd	%xmm10, %xmm0, %xmm11
+ 318      DA
+ 319 0361 C4017B11 		vmovsd	%xmm11, 160(%r11,%r10,8)
+ 319      9CD3A000 
+ 319      0000
+ 320 036b 4983C201 		addq	$1, %r10
+ 321              	.LBE14:
+  41:teamcake_CPB_static.f90 ****      !
+ 322              		.loc 1 41 0 is_stmt 1 discriminator 2
+ 323 036f 4139F8   		cmpl	%edi, %r8d
+ 324 0372 0F85B8FE 		jne	.L8
+GAS LISTING /tmp/ccYXDlOX.s 			page 10
+
+
+ 324      FFFF
+ 325              	.L50:
+ 326              	.LBE9:
+ 327              	.LBE8:
+  26:teamcake_CPB_static.f90 ****   iam = OMP_GET_THREAD_NUM()
+ 328              		.loc 1 26 0
+ 329 0378 4881C408 		addq	$520, %rsp
+ 329      020000
+ 330              		.cfi_remember_state
+ 331              		.cfi_def_cfa_offset 56
+ 332 037f 5B       		popq	%rbx
+ 333              		.cfi_def_cfa_offset 48
+ 334              	.LVL22:
+ 335 0380 5D       		popq	%rbp
+ 336              		.cfi_def_cfa_offset 40
+ 337 0381 415C     		popq	%r12
+ 338              		.cfi_def_cfa_offset 32
+ 339 0383 415D     		popq	%r13
+ 340              		.cfi_def_cfa_offset 24
+ 341 0385 415E     		popq	%r14
+ 342              		.cfi_def_cfa_offset 16
+ 343 0387 415F     		popq	%r15
+ 344              		.cfi_def_cfa_offset 8
+ 345 0389 C3       		ret
+ 346              	.LVL23:
+ 347 038a 660F1F44 		.p2align 4,,10
+ 347      0000
+ 348              		.p2align 3
+ 349              	.L54:
+ 350              		.cfi_restore_state
+ 351              	.LBB17:
+ 352              	.LBB16:
+ 353 0390 4531FF   		xorl	%r15d, %r15d
+ 354 0393 4D89CD   		movq	%r9, %r13
+ 355 0396 4531F6   		xorl	%r14d, %r14d
+  53:teamcake_CPB_static.f90 ****      !
+ 356              		.loc 1 53 0
+ 357 0399 4429F9   		subl	%r15d, %ecx
+ 358 039c 83C101   		addl	$1, %ecx
+ 359              	.LBB15:
+ 360              	.LBB13:
+ 361              		.loc 1 56 0
+ 362 039f 4D39EE   		cmpq	%r13, %r14
+ 363 03a2 0F8EBAFE 		jle	.L6
+ 363      FFFF
+ 364              	.L55:
+ 365              	.LBE13:
+ 366 03a8 C5F928C2 		vmovapd	%xmm2, %xmm0
+ 367 03ac EB9A     		jmp	.L9
+ 368              	.L2:
+ 369              	.LBE15:
+ 370              	.LBE16:
+ 371              	.LBE17:
+  36:teamcake_CPB_static.f90 ****   endif
+ 372              		.loc 1 36 0
+ 373 03ae 4129EF   		subl	%ebp, %r15d
+ 374 03b1 4589FC   		movl	%r15d, %r12d
+GAS LISTING /tmp/ccYXDlOX.s 			page 11
+
+
+ 375 03b4 44897C24 		movl	%r15d, 8(%rsp)
+ 375      08
+ 376 03b9 E98BFDFF 		jmp	.L13
+ 376      FF
+ 377              		.cfi_endproc
+ 378              	.LFE2:
+ 380              		.section	.text.unlikely
+ 381              	.LCOLDE3:
+ 382              		.text
+ 383              	.LHOTE3:
+ 384              		.section	.text.unlikely
+ 385              	.LCOLDB4:
+ 386              		.text
+ 387              	.LHOTB4:
+ 388 03be 6690     		.p2align 4,,15
+ 390              	MAIN__:
+ 391              	.LFB0:
+   1:teamcake_CPB_static.f90 ****   !$    INCLUDE "omp_lib.h"
+ 392              		.loc 1 1 0
+ 393              		.cfi_startproc
+ 394 03c0 4157     		pushq	%r15
+ 395              		.cfi_def_cfa_offset 16
+ 396              		.cfi_offset 15, -16
+ 397 03c2 4156     		pushq	%r14
+ 398              		.cfi_def_cfa_offset 24
+ 399              		.cfi_offset 14, -24
+ 400 03c4 4155     		pushq	%r13
+ 401              		.cfi_def_cfa_offset 32
+ 402              		.cfi_offset 13, -32
+ 403 03c6 4154     		pushq	%r12
+ 404              		.cfi_def_cfa_offset 40
+ 405              		.cfi_offset 12, -40
+ 406 03c8 55       		pushq	%rbp
+ 407              		.cfi_def_cfa_offset 48
+ 408              		.cfi_offset 6, -48
+ 409 03c9 BD020000 		movl	$2, %ebp
+ 409      00
+ 410 03ce 53       		pushq	%rbx
+ 411              		.cfi_def_cfa_offset 56
+ 412              		.cfi_offset 3, -56
+ 413 03cf 4881ECB8 		subq	$131256, %rsp
+ 413      000200
+ 414              		.cfi_def_cfa_offset 131312
+ 415              	.LBB18:
+  20:teamcake_CPB_static.f90 ****   !
+ 416              		.loc 1 20 0
+ 417 03d6 4C8DAC24 		leaq	65872(%rsp), %r13
+ 417      50010100 
+ 418 03de 48C78424 		movq	$.LC1, 65880(%rsp)
+ 418      58010100 
+ 418      00000000 
+ 419 03ea C7842460 		movl	$20, 65888(%rsp)
+ 419      01010014 
+ 419      000000
+ 420 03f5 4C89EF   		movq	%r13, %rdi
+ 421 03f8 C7842450 		movl	$128, 65872(%rsp)
+ 421      01010080 
+GAS LISTING /tmp/ccYXDlOX.s 			page 12
+
+
+ 421      000000
+ 422 0403 488D9C24 		leaq	496(%rsp), %rbx
+ 422      F0010000 
+ 423 040b C7842454 		movl	$5, 65876(%rsp)
+ 423      01010005 
+ 423      000000
+ 424 0416 4D8D6508 		leaq	8(%r13), %r12
+ 425 041a E8000000 		call	_gfortran_st_read
+ 425      00
+ 426              	.LVL24:
+ 427 041f BA040000 		movl	$4, %edx
+ 427      00
+ 428 0424 4C89EF   		movq	%r13, %rdi
+ 429 0427 488D7424 		leaq	12(%rsp), %rsi
+ 429      0C
+ 430 042c E8000000 		call	_gfortran_transfer_integer
+ 430      00
+ 431              	.LVL25:
+ 432 0431 4C89EF   		movq	%r13, %rdi
+ 433 0434 E8000000 		call	_gfortran_st_read_done
+ 433      00
+ 434              	.LVL26:
+ 435              	.LBE18:
+ 436              	.LBB19:
+ 437              	.LBB20:
+  23:teamcake_CPB_static.f90 ****   ENDDO
+ 438              		.loc 1 23 0
+ 439 0439 4889DF   		movq	%rbx, %rdi
+ 440 043c 48C78424 		movq	$.LC1, 504(%rsp)
+ 440      F8010000 
+ 440      00000000 
+ 441 0448 C7842400 		movl	$23, 512(%rsp)
+ 441      02000017 
+ 441      000000
+ 442 0453 C78424F0 		movl	$128, 496(%rsp)
+ 442      01000080 
+ 442      000000
+ 443 045e C78424F4 		movl	$5, 500(%rsp)
+ 443      01000005 
+ 443      000000
+ 444 0469 E8000000 		call	_gfortran_st_read
+ 444      00
+ 445              	.LVL27:
+ 446 046e BA080000 		movl	$8, %edx
+ 446      00
+ 447 0473 4C89EE   		movq	%r13, %rsi
+ 448 0476 4889DF   		movq	%rbx, %rdi
+ 449 0479 E8000000 		call	_gfortran_transfer_real
+ 449      00
+ 450              	.LVL28:
+ 451 047e 4889DF   		movq	%rbx, %rdi
+ 452 0481 E8000000 		call	_gfortran_st_read_done
+ 452      00
+ 453              	.LVL29:
+ 454              	.LBE20:
+  22:teamcake_CPB_static.f90 ****      READ(*,*) data(index)
+ 455              		.loc 1 22 0
+GAS LISTING /tmp/ccYXDlOX.s 			page 13
+
+
+ 456 0486 C744240C 		movl	$1, 12(%rsp)
+ 456      01000000 
+ 457              	.L57:
+ 458              	.LBB21:
+  23:teamcake_CPB_static.f90 ****   ENDDO
+ 459              		.loc 1 23 0 discriminator 1
+ 460 048e 48C78424 		movq	$.LC1, 504(%rsp)
+ 460      F8010000 
+ 460      00000000 
+ 461 049a 4889DF   		movq	%rbx, %rdi
+ 462 049d C7842400 		movl	$23, 512(%rsp)
+ 462      02000017 
+ 462      000000
+ 463 04a8 4D8D7C24 		leaq	8(%r12), %r15
+ 463      08
+ 464 04ad C78424F0 		movl	$128, 496(%rsp)
+ 464      01000080 
+ 464      000000
+ 465 04b8 448D7501 		leal	1(%rbp), %r14d
+ 466 04bc C78424F4 		movl	$5, 500(%rsp)
+ 466      01000005 
+ 466      000000
+ 467 04c7 E8000000 		call	_gfortran_st_read
+ 467      00
+ 468              	.LVL30:
+ 469 04cc 4C89E6   		movq	%r12, %rsi
+ 470 04cf BA080000 		movl	$8, %edx
+ 470      00
+ 471 04d4 4889DF   		movq	%rbx, %rdi
+ 472 04d7 E8000000 		call	_gfortran_transfer_real
+ 472      00
+ 473              	.LVL31:
+ 474 04dc 4889DF   		movq	%rbx, %rdi
+ 475 04df E8000000 		call	_gfortran_st_read_done
+ 475      00
+ 476              	.LVL32:
+ 477 04e4 4889DF   		movq	%rbx, %rdi
+ 478              	.LBE21:
+  22:teamcake_CPB_static.f90 ****      READ(*,*) data(index)
+ 479              		.loc 1 22 0 discriminator 1
+ 480 04e7 896C240C 		movl	%ebp, 12(%rsp)
+ 481              	.LBB22:
+  23:teamcake_CPB_static.f90 ****   ENDDO
+ 482              		.loc 1 23 0 discriminator 1
+ 483 04eb 48C78424 		movq	$.LC1, 504(%rsp)
+ 483      F8010000 
+ 483      00000000 
+ 484 04f7 C7842400 		movl	$23, 512(%rsp)
+ 484      02000017 
+ 484      000000
+ 485 0502 C78424F0 		movl	$128, 496(%rsp)
+ 485      01000080 
+ 485      000000
+ 486 050d C78424F4 		movl	$5, 500(%rsp)
+ 486      01000005 
+ 486      000000
+ 487 0518 E8000000 		call	_gfortran_st_read
+GAS LISTING /tmp/ccYXDlOX.s 			page 14
+
+
+ 487      00
+ 488              	.LVL33:
+ 489 051d 4C89FE   		movq	%r15, %rsi
+ 490 0520 BA080000 		movl	$8, %edx
+ 490      00
+ 491 0525 4889DF   		movq	%rbx, %rdi
+ 492 0528 E8000000 		call	_gfortran_transfer_real
+ 492      00
+ 493              	.LVL34:
+ 494 052d 4D8D7C24 		leaq	16(%r12), %r15
+ 494      10
+ 495 0532 4889DF   		movq	%rbx, %rdi
+ 496 0535 E8000000 		call	_gfortran_st_read_done
+ 496      00
+ 497              	.LVL35:
+ 498 053a 4889DF   		movq	%rbx, %rdi
+ 499              	.LBE22:
+  22:teamcake_CPB_static.f90 ****      READ(*,*) data(index)
+ 500              		.loc 1 22 0 discriminator 1
+ 501 053d 44897424 		movl	%r14d, 12(%rsp)
+ 501      0C
+ 502              	.LBB23:
+  23:teamcake_CPB_static.f90 ****   ENDDO
+ 503              		.loc 1 23 0 discriminator 1
+ 504 0542 48C78424 		movq	$.LC1, 504(%rsp)
+ 504      F8010000 
+ 504      00000000 
+ 505 054e 448D7502 		leal	2(%rbp), %r14d
+ 506 0552 C7842400 		movl	$23, 512(%rsp)
+ 506      02000017 
+ 506      000000
+ 507 055d C78424F0 		movl	$128, 496(%rsp)
+ 507      01000080 
+ 507      000000
+ 508 0568 C78424F4 		movl	$5, 500(%rsp)
+ 508      01000005 
+ 508      000000
+ 509 0573 E8000000 		call	_gfortran_st_read
+ 509      00
+ 510              	.LVL36:
+ 511 0578 4C89FE   		movq	%r15, %rsi
+ 512 057b BA080000 		movl	$8, %edx
+ 512      00
+ 513 0580 4889DF   		movq	%rbx, %rdi
+ 514 0583 E8000000 		call	_gfortran_transfer_real
+ 514      00
+ 515              	.LVL37:
+ 516 0588 4D8D7C24 		leaq	24(%r12), %r15
+ 516      18
+ 517 058d 4889DF   		movq	%rbx, %rdi
+ 518 0590 E8000000 		call	_gfortran_st_read_done
+ 518      00
+ 519              	.LVL38:
+ 520 0595 4889DF   		movq	%rbx, %rdi
+ 521              	.LBE23:
+  22:teamcake_CPB_static.f90 ****      READ(*,*) data(index)
+ 522              		.loc 1 22 0 discriminator 1
+GAS LISTING /tmp/ccYXDlOX.s 			page 15
+
+
+ 523 0598 44897424 		movl	%r14d, 12(%rsp)
+ 523      0C
+ 524              	.LBB24:
+  23:teamcake_CPB_static.f90 ****   ENDDO
+ 525              		.loc 1 23 0 discriminator 1
+ 526 059d 48C78424 		movq	$.LC1, 504(%rsp)
+ 526      F8010000 
+ 526      00000000 
+ 527 05a9 448D7503 		leal	3(%rbp), %r14d
+ 528 05ad C7842400 		movl	$23, 512(%rsp)
+ 528      02000017 
+ 528      000000
+ 529 05b8 C78424F0 		movl	$128, 496(%rsp)
+ 529      01000080 
+ 529      000000
+ 530 05c3 C78424F4 		movl	$5, 500(%rsp)
+ 530      01000005 
+ 530      000000
+ 531 05ce E8000000 		call	_gfortran_st_read
+ 531      00
+ 532              	.LVL39:
+ 533 05d3 4C89FE   		movq	%r15, %rsi
+ 534 05d6 BA080000 		movl	$8, %edx
+ 534      00
+ 535 05db 4889DF   		movq	%rbx, %rdi
+ 536 05de E8000000 		call	_gfortran_transfer_real
+ 536      00
+ 537              	.LVL40:
+ 538 05e3 4D8D7C24 		leaq	32(%r12), %r15
+ 538      20
+ 539 05e8 4889DF   		movq	%rbx, %rdi
+ 540 05eb 4983C428 		addq	$40, %r12
+ 541 05ef E8000000 		call	_gfortran_st_read_done
+ 541      00
+ 542              	.LVL41:
+ 543 05f4 4889DF   		movq	%rbx, %rdi
+ 544              	.LBE24:
+  22:teamcake_CPB_static.f90 ****      READ(*,*) data(index)
+ 545              		.loc 1 22 0 discriminator 1
+ 546 05f7 44897424 		movl	%r14d, 12(%rsp)
+ 546      0C
+ 547              	.LBB25:
+  23:teamcake_CPB_static.f90 ****   ENDDO
+ 548              		.loc 1 23 0 discriminator 1
+ 549 05fc 48C78424 		movq	$.LC1, 504(%rsp)
+ 549      F8010000 
+ 549      00000000 
+ 550 0608 448D7504 		leal	4(%rbp), %r14d
+ 551 060c 83C505   		addl	$5, %ebp
+ 552 060f C7842400 		movl	$23, 512(%rsp)
+ 552      02000017 
+ 552      000000
+ 553 061a C78424F0 		movl	$128, 496(%rsp)
+ 553      01000080 
+ 553      000000
+ 554 0625 C78424F4 		movl	$5, 500(%rsp)
+ 554      01000005 
+GAS LISTING /tmp/ccYXDlOX.s 			page 16
+
+
+ 554      000000
+ 555 0630 E8000000 		call	_gfortran_st_read
+ 555      00
+ 556              	.LVL42:
+ 557 0635 BA080000 		movl	$8, %edx
+ 557      00
+ 558 063a 4C89FE   		movq	%r15, %rsi
+ 559 063d 4889DF   		movq	%rbx, %rdi
+ 560 0640 E8000000 		call	_gfortran_transfer_real
+ 560      00
+ 561              	.LVL43:
+ 562 0645 4889DF   		movq	%rbx, %rdi
+ 563 0648 E8000000 		call	_gfortran_st_read_done
+ 563      00
+ 564              	.LVL44:
+ 565              	.LBE25:
+  22:teamcake_CPB_static.f90 ****      READ(*,*) data(index)
+ 566              		.loc 1 22 0 discriminator 1
+ 567 064d 44897424 		movl	%r14d, 12(%rsp)
+ 567      0C
+ 568 0652 81FDEC1F 		cmpl	$8172, %ebp
+ 568      0000
+ 569 0658 0F8530FE 		jne	.L57
+ 569      FFFF
+ 570 065e 31C9     		xorl	%ecx, %ecx
+ 571 0660 31D2     		xorl	%edx, %edx
+ 572 0662 BF000000 		movl	$MAIN__._omp_fn.0, %edi
+ 572      00
+ 573              	.LBE19:
+ 574              	.LBB26:
+  26:teamcake_CPB_static.f90 ****   iam = OMP_GET_THREAD_NUM()
+ 575              		.loc 1 26 0
+ 576 0667 48895C24 		movq	%rbx, 16(%rsp)
+ 576      10
+ 577 066c 488D7424 		leaq	16(%rsp), %rsi
+ 577      10
+ 578 0671 4C896C24 		movq	%r13, 24(%rsp)
+ 578      18
+ 579 0676 66BD0200 		movw	$2, %bp
+ 580 067a E8000000 		call	GOMP_parallel
+ 580      00
+ 581              	.LVL45:
+ 582              	.LBE26:
+ 583              	.LBB27:
+ 584              	.LBB28:
+  57:teamcake_CPB_static.f90 ****      !
+  58:teamcake_CPB_static.f90 ****   ENDDO
+  59:teamcake_CPB_static.f90 ****   !
+  60:teamcake_CPB_static.f90 ****   !$OMP END PARALLEL
+  61:teamcake_CPB_static.f90 ****   !
+  62:teamcake_CPB_static.f90 ****   ! PROGRAM OUTPUT
+  63:teamcake_CPB_static.f90 ****   DO index = 0, dim_data-1
+  64:teamcake_CPB_static.f90 ****      WRITE(*,*) cma_data(index)
+ 585              		.loc 1 64 0
+ 586 067f 488D7C24 		leaq	16(%rsp), %rdi
+ 586      10
+ 587 0684 48C74424 		movq	$.LC1, 24(%rsp)
+GAS LISTING /tmp/ccYXDlOX.s 			page 17
+
+
+ 587      18000000 
+ 587      00
+ 588 068d C7442420 		movl	$64, 32(%rsp)
+ 588      40000000 
+ 589 0695 C7442410 		movl	$128, 16(%rsp)
+ 589      80000000 
+ 590 069d C7442414 		movl	$6, 20(%rsp)
+ 590      06000000 
+ 591 06a5 E8000000 		call	_gfortran_st_write
+ 591      00
+ 592              	.LVL46:
+ 593 06aa 4889DE   		movq	%rbx, %rsi
+ 594 06ad BA080000 		movl	$8, %edx
+ 594      00
+ 595 06b2 4883C308 		addq	$8, %rbx
+ 596 06b6 488D7C24 		leaq	16(%rsp), %rdi
+ 596      10
+ 597 06bb E8000000 		call	_gfortran_transfer_real_write
+ 597      00
+ 598              	.LVL47:
+ 599 06c0 488D7C24 		leaq	16(%rsp), %rdi
+ 599      10
+ 600 06c5 E8000000 		call	_gfortran_st_write_done
+ 600      00
+ 601              	.LVL48:
+ 602              	.LBE28:
+  63:teamcake_CPB_static.f90 ****      WRITE(*,*) cma_data(index)
+ 603              		.loc 1 63 0
+ 604 06ca C744240C 		movl	$1, 12(%rsp)
+ 604      01000000 
+ 605              	.L58:
+ 606              	.LBB29:
+ 607              		.loc 1 64 0 discriminator 3
+ 608 06d2 488D7C24 		leaq	16(%rsp), %rdi
+ 608      10
+ 609 06d7 C7442420 		movl	$64, 32(%rsp)
+ 609      40000000 
+ 610 06df 48C74424 		movq	$.LC1, 24(%rsp)
+ 610      18000000 
+ 610      00
+ 611 06e8 4C8D6B08 		leaq	8(%rbx), %r13
+ 612 06ec C7442410 		movl	$128, 16(%rsp)
+ 612      80000000 
+ 613 06f4 448D6501 		leal	1(%rbp), %r12d
+ 614 06f8 C7442414 		movl	$6, 20(%rsp)
+ 614      06000000 
+ 615 0700 4C8D7B10 		leaq	16(%rbx), %r15
+ 616 0704 E8000000 		call	_gfortran_st_write
+ 616      00
+ 617              	.LVL49:
+ 618 0709 4889DE   		movq	%rbx, %rsi
+ 619 070c BA080000 		movl	$8, %edx
+ 619      00
+ 620 0711 488D7C24 		leaq	16(%rsp), %rdi
+ 620      10
+ 621 0716 E8000000 		call	_gfortran_transfer_real_write
+ 621      00
+GAS LISTING /tmp/ccYXDlOX.s 			page 18
+
+
+ 622              	.LVL50:
+ 623 071b 488D7C24 		leaq	16(%rsp), %rdi
+ 623      10
+ 624 0720 E8000000 		call	_gfortran_st_write_done
+ 624      00
+ 625              	.LVL51:
+ 626 0725 488D7C24 		leaq	16(%rsp), %rdi
+ 626      10
+ 627              	.LBE29:
+  63:teamcake_CPB_static.f90 ****      WRITE(*,*) cma_data(index)
+ 628              		.loc 1 63 0 discriminator 3
+ 629 072a 896C240C 		movl	%ebp, 12(%rsp)
+ 630              	.LBB30:
+ 631              		.loc 1 64 0 discriminator 3
+ 632 072e 48C74424 		movq	$.LC1, 24(%rsp)
+ 632      18000000 
+ 632      00
+ 633 0737 448D7502 		leal	2(%rbp), %r14d
+ 634 073b C7442420 		movl	$64, 32(%rsp)
+ 634      40000000 
+ 635 0743 C7442410 		movl	$128, 16(%rsp)
+ 635      80000000 
+ 636 074b C7442414 		movl	$6, 20(%rsp)
+ 636      06000000 
+ 637 0753 E8000000 		call	_gfortran_st_write
+ 637      00
+ 638              	.LVL52:
+ 639 0758 4C89EE   		movq	%r13, %rsi
+ 640 075b BA080000 		movl	$8, %edx
+ 640      00
+ 641 0760 488D7C24 		leaq	16(%rsp), %rdi
+ 641      10
+ 642 0765 E8000000 		call	_gfortran_transfer_real_write
+ 642      00
+ 643              	.LVL53:
+ 644 076a 488D7C24 		leaq	16(%rsp), %rdi
+ 644      10
+ 645 076f E8000000 		call	_gfortran_st_write_done
+ 645      00
+ 646              	.LVL54:
+ 647 0774 488D7C24 		leaq	16(%rsp), %rdi
+ 647      10
+ 648              	.LBE30:
+  63:teamcake_CPB_static.f90 ****      WRITE(*,*) cma_data(index)
+ 649              		.loc 1 63 0 discriminator 3
+ 650 0779 44896424 		movl	%r12d, 12(%rsp)
+ 650      0C
+ 651              	.LBB31:
+ 652              		.loc 1 64 0 discriminator 3
+ 653 077e 48C74424 		movq	$.LC1, 24(%rsp)
+ 653      18000000 
+ 653      00
+ 654 0787 4C8D6B18 		leaq	24(%rbx), %r13
+ 655 078b C7442420 		movl	$64, 32(%rsp)
+ 655      40000000 
+ 656 0793 448D6503 		leal	3(%rbp), %r12d
+ 657 0797 C7442410 		movl	$128, 16(%rsp)
+GAS LISTING /tmp/ccYXDlOX.s 			page 19
+
+
+ 657      80000000 
+ 658 079f C7442414 		movl	$6, 20(%rsp)
+ 658      06000000 
+ 659 07a7 E8000000 		call	_gfortran_st_write
+ 659      00
+ 660              	.LVL55:
+ 661 07ac 4C89FE   		movq	%r15, %rsi
+ 662 07af BA080000 		movl	$8, %edx
+ 662      00
+ 663 07b4 488D7C24 		leaq	16(%rsp), %rdi
+ 663      10
+ 664 07b9 E8000000 		call	_gfortran_transfer_real_write
+ 664      00
+ 665              	.LVL56:
+ 666 07be 488D7C24 		leaq	16(%rsp), %rdi
+ 666      10
+ 667 07c3 E8000000 		call	_gfortran_st_write_done
+ 667      00
+ 668              	.LVL57:
+ 669 07c8 488D7C24 		leaq	16(%rsp), %rdi
+ 669      10
+ 670              	.LBE31:
+  63:teamcake_CPB_static.f90 ****      WRITE(*,*) cma_data(index)
+ 671              		.loc 1 63 0 discriminator 3
+ 672 07cd 44897424 		movl	%r14d, 12(%rsp)
+ 672      0C
+ 673              	.LBB32:
+ 674              		.loc 1 64 0 discriminator 3
+ 675 07d2 48C74424 		movq	$.LC1, 24(%rsp)
+ 675      18000000 
+ 675      00
+ 676 07db 4C8D7B20 		leaq	32(%rbx), %r15
+ 677 07df 4883C328 		addq	$40, %rbx
+ 678 07e3 C7442420 		movl	$64, 32(%rsp)
+ 678      40000000 
+ 679 07eb 448D7504 		leal	4(%rbp), %r14d
+ 680 07ef 83C505   		addl	$5, %ebp
+ 681 07f2 C7442410 		movl	$128, 16(%rsp)
+ 681      80000000 
+ 682 07fa C7442414 		movl	$6, 20(%rsp)
+ 682      06000000 
+ 683 0802 E8000000 		call	_gfortran_st_write
+ 683      00
+ 684              	.LVL58:
+ 685 0807 BA080000 		movl	$8, %edx
+ 685      00
+ 686 080c 4C89EE   		movq	%r13, %rsi
+ 687 080f 488D7C24 		leaq	16(%rsp), %rdi
+ 687      10
+ 688 0814 E8000000 		call	_gfortran_transfer_real_write
+ 688      00
+ 689              	.LVL59:
+ 690 0819 488D7C24 		leaq	16(%rsp), %rdi
+ 690      10
+ 691 081e E8000000 		call	_gfortran_st_write_done
+ 691      00
+ 692              	.LVL60:
+GAS LISTING /tmp/ccYXDlOX.s 			page 20
+
+
+ 693 0823 488D7C24 		leaq	16(%rsp), %rdi
+ 693      10
+ 694              	.LBE32:
+  63:teamcake_CPB_static.f90 ****      WRITE(*,*) cma_data(index)
+ 695              		.loc 1 63 0 discriminator 3
+ 696 0828 44896424 		movl	%r12d, 12(%rsp)
+ 696      0C
+ 697              	.LBB33:
+ 698              		.loc 1 64 0 discriminator 3
+ 699 082d 48C74424 		movq	$.LC1, 24(%rsp)
+ 699      18000000 
+ 699      00
+ 700 0836 C7442420 		movl	$64, 32(%rsp)
+ 700      40000000 
+ 701 083e C7442410 		movl	$128, 16(%rsp)
+ 701      80000000 
+ 702 0846 C7442414 		movl	$6, 20(%rsp)
+ 702      06000000 
+ 703 084e E8000000 		call	_gfortran_st_write
+ 703      00
+ 704              	.LVL61:
+ 705 0853 BA080000 		movl	$8, %edx
+ 705      00
+ 706 0858 4C89FE   		movq	%r15, %rsi
+ 707 085b 488D7C24 		leaq	16(%rsp), %rdi
+ 707      10
+ 708 0860 E8000000 		call	_gfortran_transfer_real_write
+ 708      00
+ 709              	.LVL62:
+ 710 0865 488D7C24 		leaq	16(%rsp), %rdi
+ 710      10
+ 711 086a E8000000 		call	_gfortran_st_write_done
+ 711      00
+ 712              	.LVL63:
+ 713              	.LBE33:
+  63:teamcake_CPB_static.f90 ****      WRITE(*,*) cma_data(index)
+ 714              		.loc 1 63 0 discriminator 3
+ 715 086f 44897424 		movl	%r14d, 12(%rsp)
+ 715      0C
+ 716 0874 81FDEC1F 		cmpl	$8172, %ebp
+ 716      0000
+ 717 087a 0F8552FE 		jne	.L58
+ 717      FFFF
+ 718              	.LBE27:
+  65:teamcake_CPB_static.f90 ****   ENDDO
+  66:teamcake_CPB_static.f90 ****   !
+  67:teamcake_CPB_static.f90 **** END PROGRAM TEAMCAKE_CPB_STATIC
+ 719              		.loc 1 67 0
+ 720 0880 4881C4B8 		addq	$131256, %rsp
+ 720      000200
+ 721              		.cfi_def_cfa_offset 56
+ 722 0887 5B       		popq	%rbx
+ 723              		.cfi_def_cfa_offset 48
+ 724 0888 5D       		popq	%rbp
+ 725              		.cfi_def_cfa_offset 40
+ 726 0889 415C     		popq	%r12
+ 727              		.cfi_def_cfa_offset 32
+GAS LISTING /tmp/ccYXDlOX.s 			page 21
+
+
+ 728 088b 415D     		popq	%r13
+ 729              		.cfi_def_cfa_offset 24
+ 730 088d 415E     		popq	%r14
+ 731              		.cfi_def_cfa_offset 16
+ 732 088f 415F     		popq	%r15
+ 733              		.cfi_def_cfa_offset 8
+ 734 0891 C3       		ret
+ 735              		.cfi_endproc
+ 736              	.LFE0:
+ 738              		.section	.text.unlikely
+ 739              	.LCOLDE4:
+ 740              		.text
+ 741              	.LHOTE4:
+ 742              		.section	.text.unlikely
+ 743              	.LCOLDB5:
+ 744              		.section	.text.startup,"ax",@progbits
+ 745              	.LHOTB5:
+ 746              		.p2align 4,,15
+ 747              		.globl	main
+ 749              	main:
+ 750              	.LFB1:
+ 751              		.loc 1 67 0
+ 752              		.cfi_startproc
+ 753              	.LVL64:
+ 754 0000 4883EC08 		subq	$8, %rsp
+ 755              		.cfi_def_cfa_offset 16
+ 756              		.loc 1 67 0
+ 757 0004 E8000000 		call	_gfortran_set_args
+ 757      00
+ 758              	.LVL65:
+ 759 0009 BE000000 		movl	$options.7.2378, %esi
+ 759      00
+ 760 000e BF090000 		movl	$9, %edi
+ 760      00
+ 761 0013 E8000000 		call	_gfortran_set_options
+ 761      00
+ 762              	.LVL66:
+ 763 0018 E8000000 		call	MAIN__
+ 763      00
+ 764              	.LVL67:
+ 765 001d 31C0     		xorl	%eax, %eax
+ 766 001f 4883C408 		addq	$8, %rsp
+ 767              		.cfi_def_cfa_offset 8
+ 768 0023 C3       		ret
+ 769              		.cfi_endproc
+ 770              	.LFE1:
+ 772              		.section	.text.unlikely
+ 773              	.LCOLDE5:
+ 774              		.section	.text.startup
+ 775              	.LHOTE5:
+ 776              		.section	.rodata
+ 777 0003 00000000 		.align 32
+ 777      00000000 
+ 777      00000000 
+ 777      00000000 
+ 777      00000000 
+ 780              	options.7.2378:
+GAS LISTING /tmp/ccYXDlOX.s 			page 22
+
+
+ 781 0020 44000000 		.long	68
+ 782 0024 FF030000 		.long	1023
+ 783 0028 00000000 		.long	0
+ 784 002c 00000000 		.long	0
+ 785 0030 01000000 		.long	1
+ 786 0034 01000000 		.long	1
+ 787 0038 00000000 		.long	0
+ 788 003c 00000000 		.long	0
+ 789 0040 1F000000 		.long	31
+ 790              		.text
+ 791              	.Letext0:
+ 792              		.section	.text.unlikely
+ 793              	.Letext_cold0:
+ 794              		.file 2 "omp_lib.h"
+ 795              		.file 3 "<built-in>"
+GAS LISTING /tmp/ccYXDlOX.s 			page 23
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 teamcake_CPB_static.f90
+     /tmp/ccYXDlOX.s:19     .text:0000000000000000 MAIN__._omp_fn.0
+     /tmp/ccYXDlOX.s:390    .text:00000000000003c0 MAIN__
+     /tmp/ccYXDlOX.s:749    .text.startup:0000000000000000 main
+     /tmp/ccYXDlOX.s:780    .rodata:0000000000000020 options.7.2378
+
+UNDEFINED SYMBOLS
+omp_get_thread_num_
+omp_get_num_threads_
+_gfortran_st_write
+_gfortran_transfer_character_write
+_gfortran_transfer_integer_write
+_gfortran_st_write_done
+_gfortran_st_read
+_gfortran_transfer_integer
+_gfortran_st_read_done
+_gfortran_transfer_real
+GOMP_parallel
+_gfortran_transfer_real_write
+_gfortran_set_args
+_gfortran_set_options

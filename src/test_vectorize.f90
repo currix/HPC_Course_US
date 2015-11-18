@@ -11,6 +11,8 @@ PROGRAM VECT_TEST
   DO I = 1, 1024
      L(I)=L(I) + 1
   END DO
+
+  L=L + 2
   
   PRINT *, L
   

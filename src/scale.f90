@@ -20,21 +20,19 @@ MODULE SCALEMOD
   !
 CONTAINS
   !
-  SUBROUTINE Scale_0(VA, VB, A)
+  FUNCTION Scale_0(VA, VB, A)
     !
-    REAL(KIND = PREC), DIMENSION(0:), INTENT(INOUT)  :: VA
+    REAL(KIND = PREC), DIMENSION(0:), INTENT(IN)  :: VA
     REAL(KIND = PREC), DIMENSION(0:), INTENT(IN)  :: VB
     REAL(KIND = PREC), INTENT(IN) :: A
+    REAL(KIND = PREC), DIMENSION(0:Nval-1) :: Scale_0
     !
     INTEGER(KIND = I4B) :: Index
     !
-    !    VA = A*VA + VB
-    DO Index = 0, Nval-1
-       VA(Index) = A*VA(Index) + VB(Index)
-    ENDDO
+    Scale_0 = A*VA + VB
     !
     RETURN
-  END SUBROUTINE Scale_0
+  END FUNCTION Scale_0
   !
   SUBROUTINE Exvalue(exact_value)
     !

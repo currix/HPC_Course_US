@@ -1,0 +1,196 @@
+SCADM01
+
+currix@scadm01 src]$ gcc -v
+Using built-in specs.
+COLLECT_GCC=gcc
+COLLECT_LTO_WRAPPER=/opt/rh/devtoolset-2/root/usr/libexec/gcc/x86_64-redhat-linux/4.8.2/lto-wrapper
+Target: x86_64-redhat-linux
+Configured with: ../configure --prefix=/opt/rh/devtoolset-2/root/usr --mandir=/opt/rh/devtoolset-2/root/usr/share/man --infodir=/opt/rh/devtoolset-2/root/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --enable-languages=c,c++,fortran,lto --enable-plugin --with-linker-hash-style=gnu --enable-initfini-array --disable-libgcj --with-isl=/dev/shm/home/centos/rpm/BUILD/gcc-4.8.2-20140120/obj-x86_64-redhat-linux/isl-install --with-cloog=/dev/shm/home/centos/rpm/BUILD/gcc-4.8.2-20140120/obj-x86_64-redhat-linux/cloog-install --with-mpc=/dev/shm/home/centos/rpm/BUILD/gcc-4.8.2-20140120/obj-x86_64-redhat-linux/mpc-install --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+Thread model: posix
+gcc version 4.8.2 20140120 (Red Hat 4.8.2-15) (GCC) 
+
+[currix@scadm01 src]$ make iteratef2 2> output_make
+cpp -std=c89 -DPREC=DP  -DFLAGS="\"-O3 -ftree-vectorize -funroll-loops -march=native\"" iterate_2.f90 > /tmp/iterate_2.f90
+cpp -std=c89 -DPREC=DP  -DFLAGS="\"-O3 -ftree-vectorize -funroll-loops -march=native\"" scale.f90 > /tmp/scale.f90
+gfortran -O3 -ftree-vectorize -funroll-loops -march=native -fopt-info-vec-optimized -o iteratef2 /tmp/scale.f90 /tmp/iterate_2.f90
+
+
+[currix@scadm01 src]$ cat output_make 
+
+Analyzing loop at /tmp/scale.f90:41
+
+/tmp/scale.f90:37: note: vectorized 0 loops in function.
+
+Analyzing loop at /tmp/scale.f90:32
+
+/tmp/scale.f90:23: note: vectorized 0 loops in function.
+
+Analyzing loop at /tmp/iterate_2.f90:38
+
+
+Vectorizing loop at /tmp/iterate_2.f90:38
+
+/tmp/iterate_2.f90:38: note: === vect_do_peeling_for_loop_bound ===Setting upper bound of nb iterations for epilogue loop to 0
+
+/tmp/iterate_2.f90:38: note: LOOP VECTORIZED.
+Analyzing loop at /tmp/iterate_2.f90:29
+
+Analyzing loop at /tmp/iterate_2.f90:30
+
+
+Vectorizing loop at /tmp/iterate_2.f90:30
+
+/tmp/iterate_2.f90:30: note: === vect_do_peeling_for_alignment ===
+/tmp/iterate_2.f90:30: note: niters for prolog loop: -(((unsigned long) vect_pva.40_160 & 15) >> 3) & 1Setting upper bound of nb iterations for prologue loop to 0
+
+/tmp/iterate_2.f90:30: note: === vect_update_inits_of_dr ===
+/tmp/iterate_2.f90:30: note: === vect_do_peeling_for_loop_bound ===Setting upper bound of nb iterations for epilogue loop to 0
+
+/tmp/iterate_2.f90:30: note: LOOP VECTORIZED.
+Analyzing loop at /tmp/iterate_2.f90:23
+
+
+Vectorizing loop at /tmp/iterate_2.f90:23
+
+/tmp/iterate_2.f90:23: note: === vect_do_peeling_for_alignment ===
+/tmp/iterate_2.f90:23: note: niters for prolog loop: -(((unsigned long) vect_pvb.67_230 & 15) >> 3) & 1Setting upper bound of nb iterations for prologue loop to 0
+
+/tmp/iterate_2.f90:23: note: === vect_update_inits_of_dr ===
+/tmp/iterate_2.f90:23: note: === vect_do_peeling_for_loop_bound ===Setting upper bound of nb iterations for epilogue loop to 0
+
+/tmp/iterate_2.f90:23: note: LOOP VECTORIZED.
+Analyzing loop at /tmp/iterate_2.f90:20
+
+
+Vectorizing loop at /tmp/iterate_2.f90:20
+
+/tmp/iterate_2.f90:20: note: === vect_do_peeling_for_alignment ===
+/tmp/iterate_2.f90:20: note: niters for prolog loop: (unsigned int) -(((unsigned long) vect_pvb.88_290 & 15) >> 3) & 1Setting upper bound of nb iterations for prologue loop to 2
+
+/tmp/iterate_2.f90:20: note: === vect_update_inits_of_dr ===
+/tmp/iterate_2.f90:20: note: === vect_do_peeling_for_loop_bound ===Setting upper bound of nb iterations for epilogue loop to 2
+
+/tmp/iterate_2.f90:20: note: LOOP VECTORIZED.
+/tmp/iterate_2.f90:1: note: vectorized 4 loops in function.
+
+/tmp/iterate_2.f90:21: note: vect_recog_widen_mult_pattern: detected: 
+/tmp/iterate_2.f90:21: note: pattern recognized: patt_249 = prolog_loop_niters.89_291 w* 8;
+
+[currix@scadm01 src]$ make iteratef2 USE_SIMPLE=1 2> output_make
+cpp -std=c89 -DPREC=SP  -DFLAGS="\"-O3 -ftree-vectorize -funroll-loops -march=native\"" iterate_2.f90 > /tmp/iterate_2.f90
+cpp -std=c89 -DPREC=SP  -DFLAGS="\"-O3 -ftree-vectorize -funroll-loops -march=native\"" scale.f90 > /tmp/scale.f90
+gfortran -O3 -ftree-vectorize -funroll-loops -march=native -fopt-info-vec-optimized -o iteratef2 /tmp/scale.f90 /tmp/iterate_2.f90
+[currix@scadm01 src]$ 
+
+[currix@scadm01 src]$ cat output_make 
+
+Analyzing loop at /tmp/scale.f90:41
+
+/tmp/scale.f90:37: note: vectorized 0 loops in function.
+
+Analyzing loop at /tmp/scale.f90:32
+
+/tmp/scale.f90:23: note: vectorized 0 loops in function.
+
+Analyzing loop at /tmp/iterate_2.f90:38
+
+
+Vectorizing loop at /tmp/iterate_2.f90:38
+
+/tmp/iterate_2.f90:38: note: === vect_do_peeling_for_loop_bound ===Setting upper bound of nb iterations for epilogue loop to 2
+
+/tmp/iterate_2.f90:38: note: LOOP VECTORIZED.
+Analyzing loop at /tmp/iterate_2.f90:29
+
+Analyzing loop at /tmp/iterate_2.f90:30
+
+
+Vectorizing loop at /tmp/iterate_2.f90:30
+
+/tmp/iterate_2.f90:30: note: === vect_do_peeling_for_alignment ===
+/tmp/iterate_2.f90:30: note: niters for prolog loop: -(((unsigned long) vect_pva.42_172 & 15) >> 2) & 3Setting upper bound of nb iterations for prologue loop to 2
+
+/tmp/iterate_2.f90:30: note: === vect_update_inits_of_dr ===
+/tmp/iterate_2.f90:30: note: === vect_do_peeling_for_loop_bound ===Setting upper bound of nb iterations for epilogue loop to 2
+
+/tmp/iterate_2.f90:30: note: LOOP VECTORIZED.
+Analyzing loop at /tmp/iterate_2.f90:23
+
+
+Vectorizing loop at /tmp/iterate_2.f90:23
+
+/tmp/iterate_2.f90:23: note: === vect_do_peeling_for_alignment ===
+/tmp/iterate_2.f90:23: note: niters for prolog loop: -(((unsigned long) vect_pvb.69_242 & 15) >> 2) & 3Setting upper bound of nb iterations for prologue loop to 2
+
+/tmp/iterate_2.f90:23: note: === vect_update_inits_of_dr ===
+/tmp/iterate_2.f90:23: note: === vect_do_peeling_for_loop_bound ===Setting upper bound of nb iterations for epilogue loop to 2
+
+/tmp/iterate_2.f90:23: note: LOOP VECTORIZED.
+Analyzing loop at /tmp/iterate_2.f90:20
+
+
+Vectorizing loop at /tmp/iterate_2.f90:20
+
+/tmp/iterate_2.f90:20: note: === vect_do_peeling_for_alignment ===
+/tmp/iterate_2.f90:20: note: niters for prolog loop: (unsigned int) -(((unsigned long) vect_pvb.90_302 & 15) >> 2) & 3Setting upper bound of nb iterations for prologue loop to 2
+
+/tmp/iterate_2.f90:20: note: === vect_update_inits_of_dr ===
+/tmp/iterate_2.f90:20: note: === vect_do_peeling_for_loop_bound ===Setting upper bound of nb iterations for epilogue loop to 2
+
+/tmp/iterate_2.f90:20: note: LOOP VECTORIZED.
+/tmp/iterate_2.f90:1: note: vectorized 4 loops in function.
+
+/tmp/iterate_2.f90:21: note: vect_recog_widen_mult_pattern: detected: 
+/tmp/iterate_2.f90:21: note: pattern recognized: patt_130 = prolog_loop_niters.91_303 w* 4;
+
+
+[currix@scadm01 src]$ ./iteratef < aval_sp.inp 
+     0.13116595203E-12   0.13116595203E-12   0.84697793821E-13
+     ...		 ...		     ...
+     0.46410842418E-13   0.41978984061E-13   0.12661308428E-12
+     0.44810739012E-13   0.44759375794E-15   0.92722954523E-13
+
+    0.200343715E+10  0.156518527E+01; PREC : DOUBLE; FLAGS : -O3 -ftree-vectorize -funroll-loops -march=native
+
+[currix@scadm01 src]$ ./iteratef_simple < aval_sp.inp 
+     0.62064230741E-02   0.62064230741E-02   0.17015221251E-01
+     ...		 ...		     ...
+     0.25551416236E-01   0.31617332613E-01   0.34096222595E-01
+     0.23332192024E-01   0.13000572939E-01   0.32064175679E-02
+
+    0.211952458E+10  0.165587854E+01; PREC : SINGLE; FLAGS : -O3 -ftree-vectorize -funroll-loops -march=native
+
+
+[currix@scadm01 src]$ ./iteratef2 < aval_sp.inp 
+     0.13116595203E-12   0.13116595203E-12   0.84697793821E-13
+     ...		 ...		     ...
+     0.46410842418E-13   0.41978984061E-13   0.12661308428E-12
+     0.44810739012E-13   0.44759375794E-15   0.92722954523E-13
+
+    0.598223090E+10  0.467361789E+01; PREC : DOUBLE; FLAGS : -O3 -ftree-vectorize -funroll-loops -march=native
+
+[currix@scadm01 src]$ ./iteratef2_simple < aval_sp.inp 
+     0.62064230741E-02   0.62064230741E-02   0.17015221251E-01
+     ...		 ...		     ...
+     0.25551416236E-01   0.31617332613E-01   0.34096222595E-01
+     0.23332192024E-01   0.13000572939E-01   0.32064175679E-02
+
+    0.595437472E+10  0.465185547E+01; PREC : SINGLE; FLAGS : -O3 -ftree-vectorize -funroll-loops -march=native
+
+Adding ffast-math...
+
+[currix@scadm01 src]$ ./iteratef2_simple < aval_sp.inp 
+     0.62064231007E-02   0.62064231007E-02   0.17015221225E-01
+     ...		 ...		     ...
+     0.25551416210E-01   0.31617332587E-01   0.34096222569E-01
+     0.23332191998E-01   0.13000572913E-01   0.32064175416E-02
+
+    0.640096040E+10  0.500075054E+01; PREC : SINGLE; FLAGS : -O3 -ftree-vectorize -ffast-math -funroll-loops -march=native
+
+[currix@scadm01 src]$ ./iteratef2 < aval_sp.inp 
+     0.43446065774E-10   0.43446065774E-10   0.43399525348E-10
+     ...		 ...		     ...
+     0.43361243381E-10   0.43272924512E-10   0.43188359005E-10
+     0.43359621707E-10   0.43314431247E-10   0.43407557391E-10
+
+    0.601029263E+10  0.469554111E+01; PREC : DOUBLE; FLAGS : -O3 -ftree-vectorize -ffast-math -funroll-loops -march=native

@@ -27,8 +27,7 @@ PROGRAM ITERATE
   !
   ! Main Loop
   DO Index = 1, Iter
-     !     CALL Scale_0(vA, vB, Avalue)
-     vA = Scale_0(vA, vB, Avalue)
+     vA =  Avalue*VA + VB
   ENDDO
   !
   ! Set time end
