@@ -5,9 +5,9 @@ use warnings;
 my ($program_name, $init_cpu_num, $end_cpu_num, $step_cpu_num) = @ARGV;
 #
 my @output;
-push @output, ' 1 '.`export OMP_NUM_THREADS=1;./mandelomp`; # Single processor
+push @output, ' 1 '.`export OMP_NUM_THREADS=1;./mandelomp | tail -n 1`; # Single processor
 #
 for (my $cpu_num = $init_cpu_num; $cpu_num <= $end_cpu_num; $cpu_num += $step_cpu_num) {
-  push @output, " $cpu_num ".`export OMP_NUM_THREADS=$cpu_num;./mandelomp`;
+  push @output, " $cpu_num ".`export OMP_NUM_THREADS=$cpu_num;./mandelomp | tail -n 1`;
 }
 print @output;

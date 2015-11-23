@@ -1,0 +1,221 @@
+Mandelbrot in Debian (GAFF)
+
+Intel(R) Xeon(R) CPU           X5672  @ 3.20GHz
+16 processors
+gcc version 4.7.2 (Debian 4.7.2-5)
+
+----------------------- I -------------------
+Change OPTFLAGS in Makefile to include some more agressive
+optimizations. How much faster does it get?
+--------------------------------------------
+
+Result with no optimization OPTFLAGS=-O0
+[pts/1][curro.gaff: mandelbrot]$ ./mandelbrot 
+ 1.579e+01  1.477e+10  9.357e-01
+
+
+Result with original optimization OPTFLAGS=-O3
+[pts/1][curro.gaff: mandelbrot]$ ./mandelbrot 
+ 1.015e+01  1.477e+10  1.456e+00
+
+Result with more aggressive optimizaton 
+
+OPTFLAGS=-O3 -ffast-math -ftree-vectorize -unroll-loops 
+[pts/1][curro.gaff: mandelbrot]$ ./mandelbrot 
+ 1.125e+01  1.477e+10  1.313e+00
+
+OPTFLAGS=-O3 -ffast-math 
+[pts/1][curro.gaff: mandelbrot]$ ./mandelbrot 
+ 1.127e+01  1.477e+10  1.311e+00
+
+OPTFLAGS=-Ofast
+[pts/1][curro.gaff: mandelbrot]$ ./mandelbrot 
+ 1.120e+01  1.477e+10  1.319e+00
+
+OPTFLAGS=-O3 ARCH=-march=native
+[pts/1][curro.gaff: mandelbrot]$ ./mandelbrot 
+ 1.006e+01  1.477e+10  1.469e+00
+======================================> Program mandelbrot_1
+
+
+----------------------- II -------------------
+In mandelomp.c, substitute calls to start_timer() and stop_timer() by
+calls to omp_get_wtime(). Compile. Have you added the include file
+mpi.h? 
+----------------------------------------------
+
+[pts/1][curro.gaff: mandelbrot]$ OMP_NUM_THREADS=1 ./mandelomp 
+ 1.016e+01  1.477e+10  1.454e+00
+======================================> Program mandelomp_1
+
+----------------------- III -------------------
+Parallelize mandelomp.c with a simple parallel for. Run with 1, 2 and
+4 threads. Is the image the same?
+----------------------------------------------
+
+Parallel inner for in mandelbrot function:  
+
+double flops=0;
+  for (j = 0; j < img->ny; ++j) {
+    #pragma omp parallel for
+    for (i = 0; i < img->nx; ++i) {
+      x = x1+dx*i;
+      y = y1+dy*j;
+      count = iterate(x,y,maxiters);
+      color_pixel(img,i,j,count,maxiters);
+      flops += 4+count*8;
+    }
+  }
+======================================> Program mandelomp_2
+
+
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=1 ./mandelomp 
+ 1.028e+01  1.477e+10  1.437e+00
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=2 ./mandelomp 
+ 1.053e+01  7.680e+09  7.290e-01
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=4 ./mandelomp 
+ 3.469e+00  4.426e+09  1.276e+00
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=8 ./mandelomp 
+ 1.958e+00  2.267e+09  1.158e+00
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=16 ./mandelomp 
+ 1.828e+00  1.196e+09  6.541e-01
+
+The image is the same. flops is not correctly computed, but time is
+the same. In order to fix the problem with flops we can use a
+"reduction" clause:
+
+  double flops=0;
+  for (j = 0; j < img->ny; ++j) {
+#pragma omp parallel for reduction(+:flops)
+    for (i = 0; i < img->nx; ++i) {
+      x = x1+dx*i;
+      y = y1+dy*j;
+      count = iterate(x,y,maxiters);
+      color_pixel(img,i,j,count,maxiters);
+      flops += 4+count*8;
+    }
+  }
+
+The result now is
+
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=1 ./mandelomp 
+ 1.029e+01  1.477e+10  1.436e+00
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=2 ./mandelomp 
+ 1.070e+01  1.477e+10  1.381e+00
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=4 ./mandelomp 
+ 6.511e+00  1.477e+10  2.269e+00
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=8 ./mandelomp 
+ 1.926e+00  1.477e+10  7.672e+00
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=16 ./mandelomp 
+ 1.841e+00  1.477e+10  8.023e+00
+
+
+Results are similar if we parallelize the outer loop:
+
+  double flops=0;
+#pragma omp parallel for reduction(+:flops)
+  for (j = 0; j < img->ny; ++j) {
+    for (i = 0; i < img->nx; ++i) {
+      x = x1+dx*i;
+      y = y1+dy*j;
+      count = iterate(x,y,maxiters);
+      color_pixel(img,i,j,count,maxiters);
+      flops += 4+count*8;
+    }
+  }
+======================================> Program mandelomp_3
+
+
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=1 ./mandelomp 
+ 1.010e+01  1.477e+10  1.462e+00
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=2 ./mandelomp 
+ 9.914e+00  1.477e+10  1.490e+00
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=4 ./mandelomp 
+ 5.895e+00  1.477e+10  2.506e+00
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=8 ./mandelomp 
+ 3.362e+00  1.477e+10  4.394e+00
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=16 ./mandelomp 
+ 1.816e+00  1.477e+10  8.134e+00
+
+
+
+----------------------- IV -------------------
+Modify the code in order to have a parallel section and a for
+worksharing construct. Is the image fine? Include a statement that
+tells us on how many threads we are running
+----------------------------------------------
+
+We proceed as follows to make a color change that marks the different
+tasks:
+
+double mandelbrot(IMAGE *img, int maxiters, 
+                  REAL x1, REAL x2, REAL y1, REAL y2) { 
+  int i,j,count;
+  int iam, nt;
+  REAL dx = (x2-x1)/img->nx, dy = (y2-y1)/img->ny;
+  REAL x,y;
+  double flops=0;
+  #pragma omp parallel private(iam,nt)
+  {    
+    iam = omp_get_thread_num();
+    nt =  omp_get_num_threads();
+    //
+    printf("# Task %03d out of %03d has started.\n",iam, nt);
+    //
+    #pragma omp for reduction(+:flops)
+    for (j = 0; j < img->ny; ++j) {
+      for (i = 0; i < img->nx; ++i) {
+        x = x1+dx*i;
+        y = y1+dy*j;
+        count = iterate(x,y,maxiters);
+        color_pixel(img,i,j,count*(iam%2+1),maxiters);
+        flops += 4+count*8;
+      }
+    }
+    //
+    printf("# Task %03d out of %03d ended.\n",iam, nt);
+    //
+  }
+  img->cspace=TYPE_HSV;
+  return flops;
+}
+
+======================================> Program mandelomp_4
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=1 ./mandelomp_4 
+# Task 000 out of 001 has started.
+# Task 000 out of 001 ended.
+ 1.009e+01  1.477e+10  1.464e+00
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=2 ./mandelomp_4 
+# Task 001 out of 002 has started.
+# Task 000 out of 002 has started.
+# Task 001 out of 002 ended.
+# Task 000 out of 002 ended.
+ 9.998e+00  1.477e+10  1.478e+00
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=4 ./mandelomp_4 
+# Task 000 out of 004 has started.
+# Task 003 out of 004 has started.
+# Task 001 out of 004 has started.
+# Task 002 out of 004 has started.
+# Task 000 out of 004 ended.
+# Task 003 out of 004 ended.
+# Task 001 out of 004 ended.
+# Task 002 out of 004 ended.
+ 5.867e+00  1.477e+10  2.518e+00
+[pts/1][curro.gaff: mandelbrot]$  OMP_NUM_THREADS=8 ./mandelomp_4 
+# Task 002 out of 008 has started.
+# Task 007 out of 008 has started.
+# Task 005 out of 008 has started.
+# Task 001 out of 008 has started.
+# Task 006 out of 008 has started.
+# Task 004 out of 008 has started.
+# Task 003 out of 008 has started.
+# Task 000 out of 008 has started.
+# Task 001 out of 008 ended.
+# Task 002 out of 008 ended.
+# Task 000 out of 008 ended.
+# Task 003 out of 008 ended.
+# Task 004 out of 008 ended.
+# Task 007 out of 008 ended.
+# Task 005 out of 008 ended.
+# Task 006 out of 008 ended.
+ 3.234e+00  1.477e+10  4.568e+00

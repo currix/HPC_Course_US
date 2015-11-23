@@ -34,30 +34,18 @@ int iterate(REAL cr, REAL ci, int nmax) {
 double mandelbrot(IMAGE *img, int maxiters, 
                   REAL x1, REAL x2, REAL y1, REAL y2) { 
   int i,j,count;
-  int iam, nt;
   REAL dx = (x2-x1)/img->nx, dy = (y2-y1)/img->ny;
   REAL x,y;
   double flops=0;
-  #pragma omp parallel private(iam,nt)
-  {    
-    iam = omp_get_thread_num();
-    nt =  omp_get_num_threads();
-    //
-    printf("# Task %03d out of %03d has started.\n",iam, nt);
-    //
-    #pragma omp for reduction(+:flops)
-    for (j = 0; j < img->ny; ++j) {
-      for (i = 0; i < img->nx; ++i) {
-        x = x1+dx*i;
-        y = y1+dy*j;
-        count = iterate(x,y,maxiters);
-        color_pixel(img,i,j,count*(iam%2+1),maxiters);
-        flops += 4+count*8;
-      }
+  for (j = 0; j < img->ny; ++j) {
+    #pragma omp parallel for reduction(+:flops)
+    for (i = 0; i < img->nx; ++i) {
+      x = x1+dx*i;
+      y = y1+dy*j;
+      count = iterate(x,y,maxiters);
+      color_pixel(img,i,j,count,maxiters);
+      flops += 4+count*8;
     }
-    //
-    printf("# Task %03d out of %03d ended.\n",iam, nt);
-    //
   }
   img->cspace=TYPE_HSV;
   return flops;
