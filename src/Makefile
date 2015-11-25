@@ -6,7 +6,7 @@ OPT = -O3 -ftree-vectorize -funroll-loops
 #OPT=-O3 -funroll-loops  
 #OPT=-O3
 #INFO=-fopt-info-vec-missed -fopt-info-vec-optimized
-INFO=-fopt-info-vec-optimized
+#INFO=-fopt-info-vec-optimized
 #INFO=-fopt-info-all
 
 # MP Flags
@@ -31,11 +31,17 @@ OPTFLAGS = $(OPT)
 OPTFLAGS += $(ARCH)
 OPTFLAGS1 = "\"$(OPT) $(ARCH)\""
 
-all: iteratef iteratef2 teamcake_CPB test_vectorize
+all: iteratef iteratef2 teamcake_CPB test_vectorize_Integer test_vectorize_Single test_vectorize_Double
 
 .FORCE:	
 
-test_vectorize:	test_vectorize.f90 Makefile .FORCE
+test_vectorize_Integer:	test_vectorize_Integer.f90 Makefile .FORCE
+	$(FC) $(OPT) $(ARCH) $(INFO) -o $@ $<
+
+test_vectorize_Single:	test_vectorize_Single.f90 Makefile .FORCE
+	$(FC) $(OPT) $(ARCH) $(INFO) -o $@ $<
+
+test_vectorize_Double:	test_vectorize_Double.f90 Makefile .FORCE
 	$(FC) $(OPT) $(ARCH) $(INFO) -o $@ $<
 
 teamcake_CPB:	teamcake_CPB.f90 Makefile .FORCE teamcake_CPB.lst
