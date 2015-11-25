@@ -1,0 +1,18 @@
+Original 
+ 1.994e+01  1.477e+10  7.408e-01
+cc -Wall -O3 -ffast-math -ftree-vectorize -unroll-loops -o mandelbrot
+mandelbrot.c -lrt timing.o ppm_soa.o
+ 2.143e+01  1.477e+10  6.893e-01
+cc -Wall -O3 -ffast-math -ftree-vectorize -unroll-loops
+-faggressive-loop-optimizations -o mandelbrot mandelbrot.c -lrt timing.o
+ppm_soa.o
+ 2.142e+01  1.477e+10  6.898e-01
+[currix@scadm01 mandelbrot]$ make all
+cc -Wall -O3 -ffast-math -ftree-vectorize -unroll-loops
+-faggressive-loop-optimizations -fopenmp -o mandelop mandelop.c -lrt timing.o
+ppm_soa.o
+[currix@scadm01 mandelbrot]$ ./mandelop
+ 2.140e+01  1.477e+10  6.902e-01
+
+
+
