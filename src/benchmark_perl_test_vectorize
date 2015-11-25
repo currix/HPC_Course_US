@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Benchmark qw( timethese cmpthese ) ;
+my $CNT=2000;
+my $r = timethese( $CNT, {
+                       #                       a => sub{system "ls -lrth  > out_1"},
+                       #                       b => sub{system "ls -alrth > out_2"}
+		       a => sub{system "./test_vectorize_Integer > out_0"},
+		       b => sub{system "./test_vectorize_Single > out_1"},
+		       c => sub{system "./test_vectorize_Double > out_2"}
+		      } );
+cmpthese $r;

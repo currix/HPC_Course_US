@@ -1,0 +1,35 @@
+Compilation:
+
+
+[pts/3][curro.deckard: src]$ make test_vectorize_Double test_vectorize_Single test_vectorize_Integer
+gfortran -O3 -ftree-vectorize -funroll-loops -march=native  -o test_vectorize_Double test_vectorize_Double.f90
+gfortran -O3 -ftree-vectorize -funroll-loops -march=native  -o test_vectorize_Single test_vectorize_Single.f90
+gfortran -O3 -ftree-vectorize -funroll-loops -march=native  -o test_vectorize_Integer test_vectorize_Integer.f90
+[
+
+Results obtained writing the array
+
+[pts/3][curro.deckard: src]$ benchmark_perl_test_vectorize 1000
+Benchmark: timing 2000 iterations of a, b, c...
+         a: 18 wallclock secs ( 0.03 usr +  0.57 sys =  0.60 CPU) @ 3333.33/s (n=2000)
+         b: 21 wallclock secs ( 0.02 usr  0.32 sys +  4.14 cusr  1.52 csys =  6.00 CPU) @ 333.33/s (n=2000)
+         c: 23 wallclock secs ( 0.04 usr  0.29 sys +  4.04 cusr  1.52 csys =  5.89 CPU) @ 339.56/s (n=2000)
+    Rate    b    c    a
+b  333/s   --  -2% -90%
+c  340/s   2%   -- -90%
+a 3333/s 900% 882%   --
+
+
+Results obtained not writing the array
+
+[pts/3][curro.deckard: src]$ benchmark_perl_test_vectorize
+Benchmark: timing 2000 iterations of a, b, c...
+         a: 14 wallclock secs ( 0.06 usr +  0.52 sys =  0.58 CPU) @ 3448.28/s (n=2000)
+         b: 14 wallclock secs ( 0.10 usr +  0.50 sys =  0.60 CPU) @ 3333.33/s (n=2000)
+         c: 14 wallclock secs ( 0.05 usr +  0.54 sys =  0.59 CPU) @ 3389.83/s (n=2000)
+    Rate   b   c   a
+b 3333/s  -- -2% -3%
+c 3390/s  2%  -- -2%
+a 3448/s  3%  2%  --
+
+
