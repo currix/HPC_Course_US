@@ -1,0 +1,20 @@
+PROGRAM VECT_TEST
+  IMPLICIT NONE
+  INTEGER, PARAMETER :: DP = KIND(1.0D0)
+  !
+  REAL(KIND=DP) :: L(1024)
+  INTEGER :: I
+  
+  DO I = 1, 1024
+     L(I) = REAL(I,DP)
+  END DO
+  
+  DO I = 1, 1024
+     L(I)=L(I) + 1.0_DP
+  END DO
+
+  L=L + 2.0_DP
+  
+  PRINT *,  L(1)*L(1024)
+  
+END PROGRAM VECT_TEST
