@@ -14,6 +14,6 @@ PROGRAM VECT_TEST
 
   L=L + 2
   
-  PRINT *, L
+  !PRINT *, L
   
 END PROGRAM VECT_TEST

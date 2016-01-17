@@ -1,0 +1,21 @@
+#
+OPT=-O3 -ffast-math
+FC = gfortran
+FLAGS = -march=native -fopt-info-vec-missed -fopt-info-vec-optimized
+
+
+all: test_vectorize_Single test_vectorize_Double
+
+.FORCE:	
+
+test_vectorize_Single:	test_vectorize_Single.f90 Makefile_gfort .FORCE
+	$(FC) $(OPT) $(FLAGS) -o $@_$(FC) $<
+
+test_vectorize_Double:	test_vectorize_Double.f90 Makefile_gfort .FORCE
+	$(FC) $(OPT) $(FLAGS)  -o $@_$(FC) $<
+
+test_vectorize_Single_gfortran.lst:	test_vectorize_Single.f90 Makefile_gfort
+	$(FC) -c -g -Wa,-a,-ad $(FLAGS) $(OPT) $< > $@
+
+clean:	
+	rm -f *.o *.s *.exe *.lst *.ppm  test_vectorize_Single_$(FC) test_vectorize_Double_$(FC) test_vectorize_Single_gofortran.lst

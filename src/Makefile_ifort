@@ -1,0 +1,21 @@
+# 
+OPT=-fast
+INFO=-qopt-report=3
+FLAGS = -L${MKLROOT}/lib/intel64 -lmkl_intel_lp64 -lmkl_core -lmkl_sequential -lpthread -lm
+FC = ifort
+
+all: test_vectorize_Single test_vectorize_Double
+
+.FORCE:	
+
+test_vectorize_Single:	test_vectorize_Single.f90 Makefile_ifort .FORCE
+	$(FC) $(OPT)  $(INFO) -o $@_$(FC) $< $(FLAGS)
+
+test_vectorize_Double:	test_vectorize_Double.f90 Makefile_ifort .FORCE
+	$(FC) $(OPT) $(INFO) -o $@_$(FC) $< $(FLAGS)
+
+test_vectorize_Single_ifort.lst:	test_vectorize_Single.f90 Makefile_ifort .FORCE
+	$(FC) -c -S -fsource-asm $(OPT)  $(INFO)  $< $(FLAGS) > $@
+
+clean:	
+	rm -f *.o *.s *.exe *.lst *.ppm   test_vectorize_Single_$(FC) test_vectorize_Double_$(FC)
