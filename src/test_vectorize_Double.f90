@@ -15,7 +15,8 @@ PROGRAM VECT_TEST_DOUBLE
      !
      DO I = (2**J)*100000, 0, -1
         !        Pi_app = Pi_app +  REAL((-1)**I,DP)/REAL(2*I+1,DP)
-        Pi_app = Pi_app +  REAL( merge(1,-1,Iand(I,1)/=1),DP)/REAL(2*I+1,DP)
+        !        Pi_app = Pi_app +  REAL( merge(1,-1,Iand(I,1)/=1),DP)/REAL(2*I+1,DP)
+        Pi_app = Pi_app +  REAL( 1-2*Iand(I,1),DP)/REAL(2*I+1,DP)
      END DO
      !
      CALL CPU_TIME(time_end)

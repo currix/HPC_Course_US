@@ -18,7 +18,7 @@ PROGRAM VECT_TEST_SINGLE
      !DO I = 0, (2**J)*100000
      DO I = (2**J)*100000, 0, -1
         !        Pi_app = Pi_app + REAL((-1)**I,SP)/REAL(2*I+1,SP)
-        Pi_app = Pi_app + REAL( merge(1,-1,Iand(I,1)/=1),SP)/REAL(2*I+1,SP)
+        Pi_app = Pi_app + REAL( 1-2*Iand(I,1),SP)/REAL(2*I+1,SP)
      END DO
      !
      CALL CPU_TIME(time_end)
